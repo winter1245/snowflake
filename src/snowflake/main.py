@@ -1,4 +1,4 @@
-from formatter import formatScope
+#from formatter import formatScope
 import sys
 
 
@@ -14,7 +14,7 @@ def main():
     """)
     if len(sys.argv)>1:
         if sys.argv[1] == "scope":
-            formatScope()
+        #formatScope()
 
     return 0
 
