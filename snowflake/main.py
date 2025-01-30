@@ -11,9 +11,10 @@ def main():
 \\___ \\| '_ \\ / _ \\ \\ /\\ / / |_| |/ _` | |/ / _ \\
  ___) | | | | (_) \\ V  V /|  _| | (_| |   <  __/
 |____/|_| |_|\\___/ \\_/\\_/ |_| |_|\\__,_|_|\\_\\___|                                                                                                                                                                                                                                                           
-""")
-    if sys.argv[1] == "scope":
-        formatScope()
+    """)
+    if len(sys.argv)>1:
+        if sys.argv[1] == "scope":
+            formatScope()
 
     return 0
 
