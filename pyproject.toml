@@ -9,7 +9,7 @@ dependencies = [
 
 
 [project.scripts]
-snowflake = "snowflake.main:main_func"
+snowflake = "snowflake.main:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
