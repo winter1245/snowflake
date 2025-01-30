@@ -1,0 +1,10 @@
+[metadata]
+name = snowflake
+version = 1.0
+
+[project.scripts]
+snowflake = "snowflake.snowflake:main_func"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
