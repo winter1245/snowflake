@@ -12,7 +12,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build]
 include = [
-  "snowflake/*.py",
+  "src/snowflake/*.py",
 ]
 
 [tool.hatch.build.targets.wheel]
