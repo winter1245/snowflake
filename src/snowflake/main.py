@@ -1,4 +1,4 @@
-from src.snowflake.formatter import formatScope
+from formatter import formatScope
 import sys
 
 
