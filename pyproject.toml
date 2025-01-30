@@ -1,13 +1,17 @@
 [project]
 name = "snowflake"
 version = "1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+]
 
-[tool.poetry.dependencies]
-python_requires = "^3.9"
 
 [project.scripts]
 snowflake = "snowflake.main:main_func"
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.build"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
