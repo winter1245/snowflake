@@ -6,7 +6,6 @@ version = "1.0"
 snowflake = "snowflake.main:main_func"
 
 
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
