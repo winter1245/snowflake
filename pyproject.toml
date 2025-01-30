@@ -3,7 +3,7 @@ name = "snowflake"
 version = "1.0"
 
 [project.scripts]
-snowflake = "snowflake:main_func"
+snowflake = "snowflake.main:main_func"
 
 
 
