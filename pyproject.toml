@@ -1,6 +1,9 @@
 [project]
 name = "snowflake"
 version = "1.0"
+dependencies = [
+  "formatter"
+]
 
 [project.scripts]
 snowflake = "snowflake.main:main_func"
