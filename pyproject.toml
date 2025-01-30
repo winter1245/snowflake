@@ -1,9 +1,12 @@
-[tool.poetry]
+[project]
 name = "snowflake"
 version = "1.0"
 
 [tool.poetry.dependencies]
 python_requires = "^3.9"
+
+[project.scripts]
+snowflake = "snowflake.main:main_func"
 
 [build-system]
 requires = ["poetry>=0.12"]
