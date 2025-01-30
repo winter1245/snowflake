@@ -16,4 +16,4 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["snowflake"]
+packages = ["src/snowflake"]
