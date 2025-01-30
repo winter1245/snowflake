@@ -1,3 +1,4 @@
+from formatter import formatScope
 import sys
 
 
@@ -11,6 +12,9 @@ def main():
  ___) | | | | (_) \\ V  V /|  _| | (_| |   <  __/
 |____/|_| |_|\\___/ \\_/\\_/ |_| |_|\\__,_|_|\\_\\___|                                                                                                                                                                                                                                                           
 """)
+    if sys.argv[1] == "scope":
+        formatScope()
+
     return 0
 
 
