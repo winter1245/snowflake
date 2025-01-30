@@ -10,10 +10,10 @@ snowflake = "snowflake.main:main_func"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.hatch.build]
-include = [
-  "src/snowflake/*.py",
-]
+#[tool.hatch.build]
+#include = [
+ # "src/snowflake/*.py",
+#]
 
 [tool.hatch.build.targets.wheel]
 only-include = ["src"]
