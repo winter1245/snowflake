@@ -15,6 +15,6 @@ build-backend = "hatchling.build"
  # "src/snowflake/*.py",
 #]
 
-[tool.hatch.build.targets.wheel]
-only-include = ["src"]
-sources = ["src"]
+#[tool.hatch.build.targets.wheel]
+#only-include = ["src"]
+#sources = ["src"]
