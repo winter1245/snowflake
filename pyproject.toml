@@ -16,5 +16,5 @@ include = [
   "snowflake/*.py",
 ]
 
-#[tool.hatch.build.targets.wheel]
-#packages = ["snowflake"]
+[tool.hatch.build.targets.wheel]
+packages = ["snowflake"]
