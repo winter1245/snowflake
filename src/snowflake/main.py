@@ -16,14 +16,18 @@ def init():
 
 def controller():
     
-    while 1:
+    try:
+        while 1:
 
-        print("[1] seperate scope")
+            print("[1] seperate scope")
 
-        userIN=input()
-        if userIN==1:
-            formatScope()
+            userIN=input()
+            if userIN==1:
+                formatScope()
 
+
+    except KeyboardInterrupt:
+        return 0
 
     return 0
 
