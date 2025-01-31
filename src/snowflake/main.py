@@ -1,10 +1,8 @@
 from snowflake.formatter import formatScope
 import sys
 
-
-
-def main():
-    
+def init():
+      
     print("""
   ____                      __ _       _        
 / ___| _ __   _____      __/ _| | __ _| | _____ 
@@ -12,9 +10,30 @@ def main():
  ___) | | | | (_) \\ V  V /|  _| | (_| |   <  __/
 |____/|_| |_|\\___/ \\_/\\_/ |_| |_|\\__,_|_|\\_\\___|                                                                                                                                                                                                                                                           
     """)
-    if len(sys.argv)>1:
-        if sys.argv[1] == "scope":
+
+
+    return 0
+
+
+def controller():
+    
+    while 1:
+
+        print("[1] seperate scope")
+
+        userIN=input()
+        if userIN==1:
             formatScope()
+
+
+    return 0
+
+
+def main():
+    
+ 
+    init()
+    controller()
 
     return 0
 
