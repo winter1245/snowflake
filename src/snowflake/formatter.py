@@ -32,4 +32,4 @@ def formatScope():
 
 
         sys.stdout.write('\n')
-        return 0
+        return 
