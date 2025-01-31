@@ -1,7 +1,7 @@
 
 def formatScope():
     
-    with open("myfile.txt", "rb") as f:
+    with open("scope.txt", "rb") as f:
         lineCount = sum(1 for _ in f)
 
     with open('scope.txt') as scope:
