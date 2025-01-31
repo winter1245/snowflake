@@ -10,7 +10,7 @@ def formatScope():
         for line in scope:
             i+=1
             sys.stdout.write('\r')
-            sys.stdout.write('seperating scope [' + str(i) + ' of ' + str(lineCount) + ']\n')
+            sys.stdout.write('seperating scope [' + str(i) + ' of ' + str(lineCount) + ']')
             sys.stdout.flush()
 
             if line[0]=='*':
@@ -21,3 +21,6 @@ def formatScope():
 
                     except:
                         print("writing to file failed")
+
+
+        return 0
