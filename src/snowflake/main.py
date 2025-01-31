@@ -22,7 +22,7 @@ def controller():
             print("[1] seperate scope")
 
             userIN=input()
-            if userIN==1:
+            if userIN=="1":
                 formatScope()
 
 
