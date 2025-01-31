@@ -15,7 +15,7 @@ def formatScope():
 
             if line[0]=='*':
                 wildcard=line[1:] # remove *
-                with open('wildcard.txt', 'w') as file:
+                with open('wildcard.txt', 'a') as file:
                     try:
                         file.write(wildcard)
 
@@ -23,7 +23,7 @@ def formatScope():
                         print("writing to file failed")
 
             else:
-                with open('active.txt', 'w') as file:
+                with open('active.txt', 'a') as file:
                     try:
                         file.write(line)
 
