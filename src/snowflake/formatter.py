@@ -1,3 +1,4 @@
+import sys
 
 def formatScope():
     
@@ -8,7 +9,8 @@ def formatScope():
         i=0
         for line in scope:
             i+=1
-            print(f"seperating scope [{i} of {lineCount}]")
+            sys.stdout.write('\r')
+            sys.stdout.write('seperating scope [' + str(i) + ' of ' + str(lineCount) + ']')
             
             if line[0]=='*':
                 wildcard=line[1:] # remove *
