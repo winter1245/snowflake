@@ -22,5 +22,14 @@ def formatScope():
                     except:
                         print("writing to file failed")
 
+            else:
+                with open('active.txt', 'w') as file:
+                    try:
+                        file.write(line)
 
+                    except:
+                        print("writing to file failed")
+
+
+        sys.stdout.write('\n')
         return 0
