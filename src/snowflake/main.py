@@ -1,5 +1,4 @@
 from snowflake.formatter import formatScope
-import sys
 
 def init():
       
@@ -12,7 +11,7 @@ def init():
     """)
 
 
-    return 0
+    return 
 
 
 def controller():
