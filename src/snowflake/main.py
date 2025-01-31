@@ -34,7 +34,7 @@ def controller():
 
 def main():
     
- 
+    formatScope() 
     init()
     controller()
 
