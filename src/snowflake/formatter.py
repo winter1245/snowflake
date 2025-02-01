@@ -1,4 +1,5 @@
 import sys
+from snowflake.params import args
 
 def formatScope():
     
@@ -14,10 +15,13 @@ def formatScope():
             sys.stdout.flush()
 
             if line[0]=='*':
+               
                 wildcard=line[1:] # remove *
                 try:
                     with open('wildcard.txt', 'a') as file:
                         file.write(wildcard)
+                    if args.verbose:
+                        print(f"copy {line} to wildcard.txt")
 
                 except OSError:
                     print("Writing to wildcard.txt failed")
@@ -26,6 +30,8 @@ def formatScope():
                 try:
                     with open('active.txt', 'a') as file:
                         file.write(line)
+                    if args.verbose:
+                        print(f"copy {line} to active.txt")
 
                 except OSError:
                     print("Writing to active.txt failed")
