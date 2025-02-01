@@ -3,13 +3,7 @@ import os.path
 
 def init():
      
-    if os.path.isfile("scope.txt")== False:
-        print(f"{'\033[93m'}[Warning]{'\033[0m'} scope.txt not found")
-    
-    if os.path.isfile("secret.txt")== False:
-        print(f"{'\033[93m'}[Warning]{'\033[0m'} secret.txt not found")
-
-
+   
 
     print("""
   ____                      __ _       _        
@@ -18,6 +12,13 @@ def init():
  ___) | | | | (_) \\ V  V /|  _| | (_| |   <  __/
 |____/|_| |_|\\___/ \\_/\\_/ |_| |_|\\__,_|_|\\_\\___|                                                                                                                                                                                                                                                           
     """)
+    
+    if not os.path.isfile("scope.txt"):
+        print(f"{'\033[93m'}[Warning]{'\033[0m'} scope.txt not found")
+    
+    if not os.path.isfile("secret.txt"):
+        print(f"{'\033[93m'}[Warning]{'\033[0m'} secret.txt not found")
+
 
 
     return 
