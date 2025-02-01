@@ -1,7 +1,16 @@
 from snowflake.formatter import formatScope
+import os.path
 
 def init():
-      
+     
+    if os.path.isfile("scope.txt")== False:
+        print(f"{'\033[93m'}[Warning]{'\033[0m'} scope.txt not found")
+    
+    if os.path.isfile("secret.txt")== False:
+        print(f"{'\033[93m'}[Warning]{'\033[0m'} secret.txt not found")
+
+
+
     print("""
   ____                      __ _       _        
 / ___| _ __   _____      __/ _| | __ _| | _____ 
@@ -34,7 +43,6 @@ def controller():
 
 def main():
     
-    formatScope() 
     init()
     controller()
 
