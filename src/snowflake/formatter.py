@@ -10,7 +10,7 @@ def formatScope():
         i=0
         for line in scope:
             i+=1
-            if not args.quit:
+            if not args.quiet:
                 sys.stdout.write('\r')
                 sys.stdout.write(f'{'\033[92m'}[INFO]{'\033[0m'} seperating scope [{str(i)} of {str(lineCount)}]')
                 sys.stdout.flush()
@@ -31,7 +31,7 @@ def formatScope():
                 try:
                     with open('active.txt', 'a') as file:
                         file.write(line)
-                    if args.verbose and not args.quit:
+                    if args.verbose and not args.quiet:
                         print(f"\ncopy {line[:-1]} to active.txt")
 
                 except OSError:
