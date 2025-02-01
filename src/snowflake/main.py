@@ -1,5 +1,6 @@
 from snowflake.formatter import formatScope
-import os
+import os.path
+import argparse
 
 def init():
      
@@ -25,24 +26,13 @@ def init():
 
 
 def controller():
-    
-    try:
-        while 1:
+   
+    parser = argparse.ArgumentParser(description="seperate scope")
+    parser.add_argument("-a", "--all",action="store_true", help="run all scripts successively")
+    args = parser.parse_args()
+    if args.all:
+        formatScope()
 
-            print("[1] seperate scope")
-            print("[0] end")
-            print("\r\r")
-
-            userIN=input()
-            
-            match userIN:
-                case "1":
-                    formatScope()
-                case "0":
-                    return
-
-    except KeyboardInterrupt:
-        return 0
 
     return 0
 
