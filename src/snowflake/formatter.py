@@ -10,9 +10,10 @@ def formatScope():
         i=0
         for line in scope:
             i+=1
-            sys.stdout.write('\r')
-            sys.stdout.write(f'{'\033[92m'}[INFO]{'\033[0m'} seperating scope [{str(i)} of {str(lineCount)}]')
-            sys.stdout.flush()
+            if not args.quit:
+                sys.stdout.write('\r')
+                sys.stdout.write(f'{'\033[92m'}[INFO]{'\033[0m'} seperating scope [{str(i)} of {str(lineCount)}]')
+                sys.stdout.flush()
 
             if line[0]=='*':
                
@@ -20,7 +21,7 @@ def formatScope():
                 try:
                     with open('wildcard.txt', 'a') as file:
                         file.write(wildcard)
-                    if args.verbose:
+                    if args.verbose and not args.quiet:
                         print(f"\ncopy {line[:-1]} to wildcard.txt")
 
                 except OSError:
@@ -30,7 +31,7 @@ def formatScope():
                 try:
                     with open('active.txt', 'a') as file:
                         file.write(line)
-                    if args.verbose:
+                    if args.verbose and not args.quit:
                         print(f"\ncopy {line[:-1]} to active.txt")
 
                 except OSError:
