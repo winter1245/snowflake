@@ -1,5 +1,5 @@
 from snowflake.formatter import formatScope
-import os.path
+import os
 
 def init():
      
@@ -31,6 +31,7 @@ def controller():
 
             print("[1] seperate scope")
             print("[0] end")
+            print("\r\r")
 
             userIN=input()
             
