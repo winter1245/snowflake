@@ -21,7 +21,7 @@ def formatScope():
                     with open('wildcard.txt', 'a') as file:
                         file.write(wildcard)
                     if args.verbose:
-                        print(f"copy {line} to wildcard.txt")
+                        print(f"\ncopy {line[:-1]} to wildcard.txt")
 
                 except OSError:
                     print("Writing to wildcard.txt failed")
@@ -31,7 +31,7 @@ def formatScope():
                     with open('active.txt', 'a') as file:
                         file.write(line)
                     if args.verbose:
-                        print(f"copy {line} to active.txt")
+                        print(f"\ncopy {line[:-1]} to active.txt")
 
                 except OSError:
                     print("Writing to active.txt failed")
