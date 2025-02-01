@@ -4,8 +4,12 @@ version = "1.0"
 description = ""
 readme = "README.md"
 requires-python = ">=3.9"
+authors = [
+  {name = "winter", email = ""}
+  ]
 dependencies = [
 ]
+
 
 
 [project.scripts]
@@ -14,4 +18,13 @@ snowflake = "snowflake.main:main"
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "snowflake"
+version = "1.0"
+license = "MIT"
+description = "A work in progress recon tool for bug bounty"
+authors = [
+    "winter"
+]
 
