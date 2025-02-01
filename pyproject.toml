@@ -1,12 +1,8 @@
 [project]
 name = "snowflake"
 version = "1.0"
-description = ""
 readme = "README.md"
 requires-python = ">=3.9"
-authors = [
-  {name = "winter", email = ""}
-  ]
 dependencies = [
 ]
 
