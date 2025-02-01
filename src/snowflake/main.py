@@ -1,6 +1,6 @@
 from snowflake.formatter import formatScope
 import os.path
-import argparse
+from snowflake.params import args
 
 def init():
      
@@ -15,10 +15,10 @@ def init():
     """)
     
     if not os.path.isfile("scope.txt"):
-        print(f"{'\033[93m'}[Warning]{'\033[0m'} scope.txt not found")
+        print(f"{'\033[93m'}[WARNING]{'\033[0m'} scope.txt not found")
     
     if not os.path.isfile("secret.txt"):
-        print(f"{'\033[93m'}[Warning]{'\033[0m'} secret.txt not found")
+        print(f"{'\033[93m'}[WARNING]{'\033[0m'} secret.txt not found")
 
 
 
@@ -27,11 +27,7 @@ def init():
 
 def controller():
    
-    parser = argparse.ArgumentParser(description="seperate scope")
-    parser.add_argument("-a", "--all",action="store_true", help="run all scripts successively")
-    parser.add_argument("-sc", "--scope",action="store_true", help="seperate scope")
-    parser.add_argument("-v", "--verbose",action="store_true", help="more verbose logging")
-    args = parser.parse_args()
+   
     
     if args.scope:
         formatScope()
