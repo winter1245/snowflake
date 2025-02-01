@@ -15,12 +15,12 @@ def formatScope():
 
             if line[0]=='*':
                 wildcard=line[1:] # remove *
-                with open('wildcard.txt', 'a') as file:
-                    try:
+                try:
+                    with open('wildcard.txt', 'a') as file:
                         file.write(wildcard)
 
-                    except:
-                        print("writing to file failed")
+                except FileNotFoundError:
+                    print("The file wildcard.txt not found")
 
             else:
                 with open('active.txt', 'a') as file:
