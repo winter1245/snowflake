@@ -10,7 +10,7 @@ def formatScope():
         for line in scope:
             i+=1
             sys.stdout.write('\r')
-            sys.stdout.write(f'{'\033[92m'}[OK]{'\033[0m'} seperating scope [{str(i)} of {str(lineCount)}]')
+            sys.stdout.write(f'{'\033[92m'}[INFO]{'\033[0m'} seperating scope [{str(i)} of {str(lineCount)}]')
             sys.stdout.flush()
 
             if line[0]=='*':
