@@ -19,16 +19,16 @@ def formatScope():
                     with open('wildcard.txt', 'a') as file:
                         file.write(wildcard)
 
-                except FileNotFoundError:
-                    print("The file wildcard.txt not found")
+                except OSError:
+                    print("Writing to wildcard.txt failed")
 
             else:
-                with open('active.txt', 'a') as file:
-                    try:
+                try:
+                    with open('active.txt', 'a') as file:
                         file.write(line)
 
-                    except:
-                        print("writing to file failed")
+                except OSError:
+                    print("Writing to active.txt failed")
 
 
         sys.stdout.write('\n')

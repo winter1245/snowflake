@@ -30,11 +30,15 @@ def controller():
         while 1:
 
             print("[1] seperate scope")
+            print("[0] end")
 
             userIN=input()
-            if userIN=="1":
-                formatScope()
-
+            
+            match userIN:
+                case "1":
+                    formatScope()
+                case "0":
+                    return
 
     except KeyboardInterrupt:
         return 0
