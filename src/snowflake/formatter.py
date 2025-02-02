@@ -30,7 +30,7 @@ def formatScope():
             else:
                 try:
                     with open('active.txt', 'a') as file:
-                        file.write(line)
+                        file.write("https://" + line)
                     if args.verbose and not args.quiet:
                         print(f"\ncopy {line[:-1]} to active.txt")
 
