@@ -30,7 +30,6 @@ def filter():
     try:
         f=open('subdomain.txt','r')
         fl = f.readlines()
-        print(fl)
         f.close()
     
     except OSError:
@@ -58,11 +57,12 @@ def enumeration():
     try:
         with open("wildcard.txt","r") as f:
             for line in f:
+                print('a')
                 crtsh(line)
 
     except OSError:
         print("Reading wildcard.txt failed")
    
-    filter()
+    #filter()
     return
 
