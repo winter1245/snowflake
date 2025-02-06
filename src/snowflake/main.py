@@ -1,6 +1,7 @@
-from snowflake.formatter import formatScope
 import os.path
 from snowflake.params import args
+from snowflake.formatter import formatScope
+from snowflake.subdomain import enumeration
 
 def init():
      
@@ -35,6 +36,7 @@ def controller():
         return
     if args.all:
         formatScope()
+        enumeration()
         #...
         return
     
