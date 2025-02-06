@@ -18,6 +18,8 @@ def formatScope():
             if line[0]=='*':
                
                 wildcard=line[1:] # remove *
+                if wildcard[0]=='.':
+                    wildcard=wildcard[1:] # remove .
                 try:
                     with open('wildcard.txt', 'a') as file:
                         file.write(wildcard)
