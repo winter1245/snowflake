@@ -1,5 +1,8 @@
 import sys
-from snowflake.params import args
+try:
+    from snowflake.params import args
+except ImportError:
+    from params import args
 
 def formatScope():
     
