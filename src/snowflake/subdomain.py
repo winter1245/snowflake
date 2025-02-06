@@ -28,7 +28,7 @@ def crtsh(page):
 def filter():
     
     try:
-        f=open('subdomains.txt','r')
+        f=open('subdomain.txt','r')
         fl = f.readlines()
         print(fl)
         f.close()
@@ -38,7 +38,7 @@ def filter():
 
     unique = list(set(fl))
     try:
-        open('subdomains.txt', 'w').close() # empty file 
+        open('subdomain.txt', 'w').close() # empty file 
     
     except OSError:
         print("Writing to subdomain.txt failed")
