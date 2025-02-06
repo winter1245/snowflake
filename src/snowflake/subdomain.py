@@ -14,14 +14,14 @@ def crtsh(page):
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
 
     try:
-        with open('subdomains.txt', 'a') as file:
+        with open('subdomain.txt', 'a') as file:
             for entry in data:
                 file.write(entry['name_value'])
                 if args.verbose and not args.quiet:
-                    print('name_value')
+                    print(entry['name_value'])
 
     except OSError:
-        print("Writing to subdomains.txt failed")
+        print("Writing to subdomain.txt failed")
 
     return 
 
@@ -30,24 +30,25 @@ def filter():
     try:
         f=open('subdomains.txt','r')
         fl = f.readlines()
+        print(fl)
         f.close()
     
     except OSError:
-        print("Reading wildcard.txt failed")
+        print("Reading subdomain.txt failed")
 
     unique = list(set(fl))
     try:
         open('subdomains.txt', 'w').close() # empty file 
     
     except OSError:
-        print("Reading wildcard.txt failed")
+        print("Writing to subdomain.txt failed")
     
     try:
-        with open('subdomains.txt', 'a') as file:
+        with open('subdomain.txt', 'a') as file:
             for item in unique:
                 file.write(item)
     except OSError:
-        print("Reading wildcard.txt failed")
+        print("Writing to subdomain.txt failed")
 
 
     return
