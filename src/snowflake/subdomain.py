@@ -7,7 +7,12 @@ def crtsh(page):
     'q': page,
     'output': 'json',
     }
-    r = requests.get('https://crt.sh/', params=params)
+    
+    headers = {
+        "User-Agent" : "Mozilla/5.0",
+
+    }
+    r = requests.get('https://crt.sh/', params=params,headers=headers)
     data=r.json()
     assert type(data) is list
     print(data) 
