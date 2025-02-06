@@ -63,7 +63,7 @@ def enumeration():
     try:
         with open("wildcard.txt","r") as f:
             for line in f:
-                crtsh('fitbook.de')
+                crtsh(str(filter))
 
     except OSError:
         print("Reading wildcard.txt failed")
