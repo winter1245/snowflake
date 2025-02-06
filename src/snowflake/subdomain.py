@@ -10,7 +10,7 @@ def crtsh(page):
     r = requests.get('https://crt.sh/', params=params)
     data=r.json()
     assert type(data) is list
-   
+    print(data) 
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
     try:
         with open('subdomain.txt', 'a') as file:
@@ -56,7 +56,6 @@ def enumeration():
     try:
         with open("wildcard.txt","r") as f:
             for line in f:
-                print(line)
                 crtsh(line)
 
     except OSError:
