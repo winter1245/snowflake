@@ -34,6 +34,9 @@ def controller():
     if args.scope:
         formatScope()
         return
+    if args.subdomains:
+        enumeration()
+        return
     if args.all:
         formatScope()
         enumeration()

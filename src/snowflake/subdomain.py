@@ -29,7 +29,7 @@ def crtsh(page):
     try:
         with open('subdomains.txt', 'a') as file:
             for line in unique:
-                file.write(f'{line}\n')
+                file.write(line)
                 if args.verbose and not args.quiet:
                     print(line)
 
