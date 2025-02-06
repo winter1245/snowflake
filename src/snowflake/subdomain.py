@@ -23,9 +23,10 @@ def crtsh(page):
     for entry in data:
         fl.append(entry['name_value'])
  
-
+    print(fl)
     unique = list(set(fl))
-                
+    print(unique)
+
     try:
         with open('subdomains.txt', 'a') as file:
             for line in unique:
