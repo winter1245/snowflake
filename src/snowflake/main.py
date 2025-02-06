@@ -1,7 +1,12 @@
 import os.path
-from snowflake.params import args
-from snowflake.formatter import formatScope
-from snowflake.subdomain import enumeration
+try:
+    from snowflake.params import args
+    from snowflake.formatter import formatScope
+    from snowflake.subdomain import enumeration
+except ImportError:
+    from params import args
+    from formatter import formatScope
+    from subdomain import enumeration
 
 def init():
      

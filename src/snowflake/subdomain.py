@@ -1,5 +1,8 @@
 import requests
-from snowflake.params import args
+try:
+    from snowflake.params import args
+except ImportError:
+    from params import args
 
 def crtsh(page):
     
@@ -19,7 +22,7 @@ def crtsh(page):
     try:
         with open('subdomain.txt', 'a') as file:
             for entry in data:
-                file.write(entry['name_value'])
+                file.write(entry['name_value'+'\n'])
                 if args.verbose and not args.quiet:
                     print(entry['name_value'])
 
