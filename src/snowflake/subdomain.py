@@ -25,7 +25,6 @@ def crtsh(page):
  
 
     unique = list(set(fl))
-    print(unique)
                 
     try:
         with open('subdomains.txt', 'a') as file:
@@ -42,14 +41,14 @@ def crtsh(page):
                 
 def enumeration():
     try:
-        f = open("domain.txt","r")
+        f = open("wildcard.txt","r")
         fl = f.readlines()
         f.close()
         for line in fl:
             crtsh(line)
 
     except OSError:
-        print("Writing to subdomains.txt failed")
+        print("Reading wildcard.txt failed")
     
     return
 
