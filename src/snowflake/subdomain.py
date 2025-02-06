@@ -4,7 +4,7 @@ from snowflake.params import args
 def crtsh(page):
     
     params = {
-    'q': page,
+    'q': f'{page}',
     'output': 'json',
     }
     
