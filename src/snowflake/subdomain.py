@@ -61,7 +61,7 @@ def filter():
 
 def enumeration():
     try:
-        f = open("domain.txt","r")
+        f = open("wildcard.txt","r")
         fl = f.readlines()
         f.close()
         for line in fl:
