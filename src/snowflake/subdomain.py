@@ -65,11 +65,12 @@ def enumeration():
         fl = f.readlines()
         f.close()
         for line in fl:
-            crtsh(line)
+            crtsh(line[:-1])
+
 
     except OSError:
         print("Reading wildcard.txt failed")
-   
-    #filter()
+     
+    filter()
     return
 
