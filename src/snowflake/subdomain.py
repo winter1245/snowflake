@@ -22,7 +22,7 @@ def crtsh(page):
     try:
         with open('subdomain.txt', 'a') as file:
             for entry in data:
-                file.write(entry['name_value'+'\n'])
+                file.write(entry['name_value']+'\n')
                 if args.verbose and not args.quiet:
                     print(entry['name_value'])
 
