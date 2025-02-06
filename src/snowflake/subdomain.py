@@ -12,34 +12,47 @@ def crtsh(page):
     assert type(data) is list
    
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
-    try:
-        f = open("wildcard.txt","r")
-        fl = f.readlines()
-        f.close()
-    
-    except OSError:
-        print("Reading wildcard.txt failed")
-
-    for entry in data:
-        fl.append(entry['name_value'])
- 
-    print(f'fl:{fl}')
-    unique = list(set(fl))
-    print(f'unique:{unique}')
 
     try:
         with open('subdomains.txt', 'a') as file:
-            for line in unique:
-                file.write(line)
+            for entry in data:
+                file.write(entry['name_value'])
                 if args.verbose and not args.quiet:
-                    print(line)
+                    print('name_value')
 
     except OSError:
         print("Writing to subdomains.txt failed")
 
     return 
 
-                
+def filter():
+    
+    try:
+        f=open('subdomains.txt','r')
+        fl = f.readlines()
+        f.close()
+    
+    except OSError:
+        print("Reading wildcard.txt failed")
+
+    unique = list(set(fl))
+    try:
+        open('subdomains.txt', 'w').close() # empty file 
+    
+    except OSError:
+        print("Reading wildcard.txt failed")
+    
+    try:
+        with open('subdomains.txt', 'a') as file:
+            for item in unique:
+                file.write(item)
+    except OSError:
+        print("Reading wildcard.txt failed")
+
+
+    return
+    
+
 def enumeration():
     try:
         with open("wildcard.txt","r") as f:
@@ -48,6 +61,7 @@ def enumeration():
 
     except OSError:
         print("Reading wildcard.txt failed")
-    
+   
+    filter()
     return
 
