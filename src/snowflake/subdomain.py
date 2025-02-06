@@ -61,9 +61,11 @@ def filter():
 
 def enumeration():
     try:
-        with open("wildcard.txt","r") as f:
-            for line in f:
-                crtsh(str(line))
+        f = open("domain.txt","r")
+        fl = f.readlines()
+        f.close()
+        for line in fl:
+            crtsh(line)
 
     except OSError:
         print("Reading wildcard.txt failed")
