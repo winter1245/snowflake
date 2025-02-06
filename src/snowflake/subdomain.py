@@ -23,9 +23,9 @@ def crtsh(page):
     for entry in data:
         fl.append(entry['name_value'])
  
-    print(fl)
+    print(f'fl:{fl}')
     unique = list(set(fl))
-    print(unique)
+    print(f'unique:{unique}')
 
     try:
         with open('subdomains.txt', 'a') as file:
@@ -42,11 +42,9 @@ def crtsh(page):
                 
 def enumeration():
     try:
-        f = open("wildcard.txt","r")
-        fl = f.readlines()
-        f.close()
-        for line in fl:
-            crtsh(line)
+        with open("wildcard.txt","r") as f:
+            for line in f:
+                crtsh(line)
 
     except OSError:
         print("Reading wildcard.txt failed")
