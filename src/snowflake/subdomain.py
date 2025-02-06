@@ -12,7 +12,7 @@ def crtsh(page):
     assert type(data) is list
    
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
-
+    print(data)
     try:
         with open('subdomain.txt', 'a') as file:
             for entry in data:
@@ -57,7 +57,6 @@ def enumeration():
     try:
         with open("wildcard.txt","r") as f:
             for line in f:
-                print('a')
                 crtsh(line)
 
     except OSError:
