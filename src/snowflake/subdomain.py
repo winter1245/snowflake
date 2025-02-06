@@ -4,7 +4,7 @@ from snowflake.params import args
 def crtsh(page):
     
     params = {
-    'q': f'{page}',
+    'q': page,
     'output': 'json',
     }
     
@@ -63,7 +63,7 @@ def enumeration():
     try:
         with open("wildcard.txt","r") as f:
             for line in f:
-                crtsh(line)
+                crtsh('fitbook.de')
 
     except OSError:
         print("Reading wildcard.txt failed")
