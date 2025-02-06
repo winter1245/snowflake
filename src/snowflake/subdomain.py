@@ -25,11 +25,12 @@ def crtsh(page):
  
 
     unique = list(set(fl))
+    print(unique)
                 
     try:
         with open('subdomains.txt', 'a') as file:
             for line in unique:
-                file.write(line)
+                file.write(f'{line}\n')
                 if args.verbose and not args.quiet:
                     print(line)
 
