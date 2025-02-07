@@ -41,11 +41,11 @@ def filter():
     except OSError:
         print("Reading subdomain.txt failed")
     
-    for subdomain in fl:
-        if subdomain[0]  ==  '*':
-            subdomain=subdomain[1:]
-        if subdomain[0]  == '.':
-            subdomain=subdomain[1:]
+    for i in len(fl):
+        if fl[i][0]  ==  '*':
+            fl[i]=fl[i][1:]
+        if fl[i][0]  == '.':
+            fl[i]=fl[i][1:]
 
     unique = list(set(fl))
     try:
