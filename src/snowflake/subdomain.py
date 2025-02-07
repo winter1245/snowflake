@@ -42,10 +42,10 @@ def filter():
         print("Reading subdomain.txt failed")
     
     for subdomain in fl:
-        if item[0]  ==  '*':
-            item=item[1:]
-        if item[0]  == '.':
-            item=item[1:]
+        if subdomain[0]  ==  '*':
+            subdomain=subdomain[1:]
+        if subdomain[0]  == '.':
+            subdomain=subdomain[1:]
 
     unique = list(set(fl))
     try:
