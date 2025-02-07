@@ -40,6 +40,12 @@ def filter():
     
     except OSError:
         print("Reading subdomain.txt failed")
+    
+    for subdomain in fl:
+        if item[0]  ==  '*':
+            item=item[1:]
+        if item[0]  == '.':
+            item=item[1:]
 
     unique = list(set(fl))
     try:
@@ -51,11 +57,6 @@ def filter():
     try:
         with open('subdomain.txt', 'a') as file:
             for item in unique:
-                if item[0]  ==  '*':
-                    item=item[1:]
-                if item[0]  == '.':
-                    item=item[1:]
-
                 file.write(item)
     except OSError:
         print("Writing to subdomain.txt failed")
