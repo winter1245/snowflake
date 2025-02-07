@@ -43,7 +43,7 @@ def filter():
         if fl[i][0]  == '.':
             fl[i]=fl[i][1:]
 
-    unique = list(set(sorted(fl)))
+    unique = sorted(list(set(fl)))
     try:
         open('subdomains.txt', 'w').close() # empty file 
     
