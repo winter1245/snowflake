@@ -41,7 +41,7 @@ def filter():
     except OSError:
         print("Reading subdomain.txt failed")
     
-    for i in len(fl):
+    for i in range(len(fl)):
         if fl[i][0]  ==  '*':
             fl[i]=fl[i][1:]
         if fl[i][0]  == '.':
