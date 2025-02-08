@@ -22,10 +22,10 @@ def init():
         """)
     
         if not os.path.isfile("scope.txt"):
-            print(f"{'\033[93m'}[WARNING]{'\033[0m'} scope.txt not found")
+            print(f"{'\033[93m'}[WARNING]{'\033[0m'}scope.txt not found")
     
         if not os.path.isfile("secret.txt"):
-            print(f"{'\033[93m'}[WARNING]{'\033[0m'} secret.txt not found")
+            print(f"{'\033[93m'}[WARNING]{'\033[0m'}secret.txt not found")
 
 
 

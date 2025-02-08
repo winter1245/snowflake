@@ -38,14 +38,16 @@ def wayback(page):
     
     data=r.json()
     try:
-        with open('wayback.txt', 'a') as file:
-            for entry in data:
-                file.write(entry[0]+'\n')
+        with open('subdomains.txt', 'a') as file:
+            for entry in data[1:]: #remove first entry "origin"
+                subdomain = entry[0]
+                parslist = subdomain.split('/') #filter subdomain
+                file.write(parslist[2]+'\n')
                 if args.verbose and not args.quiet:
                     print(entry[0])
 
     except OSError:
-        print("Writing to wayback.txt failed")
+        print("Writing to subdomains.txt failed")
 
 
     return
@@ -57,13 +59,15 @@ def commoncrawl(page):
     r = requests.get(url)
     list=r.text.split('\n')
     try:
-        with open('urls.txt', 'a') as file:
+        with open('subdomains.txt', 'a') as file:
             for entry in list[:-1]:
                 data = json.loads(entry)
-                file.write(data['url']+'\n')
+                subdomain = data['url']
+                parslist = subdomain.split('/')
+                file.write(parslist[2]+'\n')
     
     except OSError:
-        print("Writing to urls.txt failed")
+        print("Writing to subdomains.txt failed")
     
     return
 
