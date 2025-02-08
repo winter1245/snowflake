@@ -1,3 +1,4 @@
+from time import sleep
 import json
 import requests
 import threading
@@ -27,6 +28,7 @@ def crtsh(page):
     except OSError:
         print("Writing to subdomains.txt failed")
 
+    sleep(15)
     return 
 
 def wayback(page):
@@ -58,7 +60,7 @@ def commoncrawl(page):
         with open('urls.txt', 'a') as file:
             for entry in list[:-1]:
                 data = json.loads(entry)
-                file.write(data['url'])
+                file.write(data['url']+'\n')
     
     except OSError:
         print("Writing to urls.txt failed")
