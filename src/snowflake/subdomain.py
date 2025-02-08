@@ -1,3 +1,4 @@
+import json
 import requests
 import threading
 try:
@@ -47,6 +48,25 @@ def wayback(page):
 
     return
 
+def commoncrawl(page):
+    
+    page=   '*.'   + page
+    url=f'http://index.commoncrawl.org/CC-MAIN-2025-05-index?url={page}&output=json'
+    r = requests.get(url)
+    list=r.text.split('\n')
+    try:
+        with open('urls.txt', 'a') as file:
+            for entry in list[:-1]:
+                data = json.loads(entry)
+                file.write(data['url'])
+    
+    except OSError:
+        print("Writing to urls.txt failed")
+    
+    return
+
+
+
 def filter():
     
     try:
@@ -94,6 +114,14 @@ def th2(fl):
         wayback(line)
     return
 
+def th3(fl):
+    for line in fl:
+        line=line[:-1]
+        print(f'{'\033[92m'}[THREAD3]{'\033[0m'}Fetching subdomains for {line}')
+        commoncrawl(line)
+    return
+
+
 def enumeration():
     try:
         f = open("wildcard.txt","r")
@@ -105,10 +133,13 @@ def enumeration():
     if args.threading:
         t1 = threading.Thread(target=th1,args=(fl,), name='t1')
         t2 = threading.Thread(target=th2,args=(fl,), name='t2')
+        t3 = threading.Thread(target=th3,args=(fl,), name='t3')
         t1.start()
         t2.start()
+        t3.start()
         t1.join()
         t2.join()
+        t3.join()
     
     else:
         for line in fl:
@@ -116,7 +147,7 @@ def enumeration():
             print(f'Fetching subdomains for {line}')
             crtsh(line)
             wayback(line)
-
+            commoncrawl(line)
         
     filter()
     return
