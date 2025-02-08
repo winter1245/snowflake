@@ -80,6 +80,19 @@ def filter():
 
     return
     
+def th1(fl):
+    for line in fl:
+        line=line[:-1]
+        print(f'Fetching subdomains for {line}')
+        crtsh(line)
+    return
+
+def th2(fl):
+    for line in fl:
+        line=line[:-1]
+        print(f'Fetching subdomains for {line}')
+        wayback(line)
+    return
 
 def enumeration():
     try:
@@ -89,12 +102,20 @@ def enumeration():
     except OSError:
         print("Reading wildcard.txt failed")
     
-
-    for line in fl:
-        line=line[:-1]
-        print(f'Fetching subdomains for {line}')
-        crtsh(line)
-        wayback(line)
+    if args.threading:
+        t1 = threading.Thread(target=th1,args=(fl,), name='t1')
+        t2 = threading.Thread(target=th2,args=(fl,), name='t2')
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+    
+    else:
+        for line in fl:
+            line=line[:-1]
+            print(f'Fetching subdomains for {line}')
+            crtsh(line)
+            wayback(line)
 
         
     filter()
