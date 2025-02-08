@@ -1,5 +1,5 @@
 import requests
-import httpx
+import threading
 try:
     from snowflake.params import args
 except ImportError:
@@ -31,7 +31,7 @@ def crtsh(page):
 def wayback(page):
     
     url=f'https://web.archive.org/cdx/search/cdx?url=*.{page}/*&output=json&collapse=urlkey&fl=original&pageSize=100&page=0'
-    r = httpx.get(url)
+    r = requests.get(url)
     
     data=r.json()
     try:
@@ -86,15 +86,17 @@ def enumeration():
         f = open("wildcard.txt","r")
         fl = f.readlines()
         f.close()
-        for line in fl:
-            line=line[:-1]
-            print(f'Fetching subdomains for {line}')
-            crtsh(line)
-            wayback(line)
-
     except OSError:
         print("Reading wildcard.txt failed")
-     
+    
+
+    for line in fl:
+        line=line[:-1]
+        print(f'Fetching subdomains for {line}')
+        crtsh(line)
+        wayback(line)
+
+        
     filter()
     return
 
