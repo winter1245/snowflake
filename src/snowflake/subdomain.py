@@ -27,6 +27,25 @@ def crtsh(page):
 
     return 
 
+def wayback(page):
+    
+    url=f'https://web.archive.org/cdx/search/cdx?url=*.{page}/*&output=json&collapse=urlkey&fl=original&pageSize=100&page=0'
+    r = requests.get(url)
+    
+    data=r.json()
+    try:
+        with open('wayback.txt', 'a') as file:
+            for entry in data:
+                file.write(entry[0]+'\n')
+                if args.verbose and not args.quiet:
+                    print(entry[0])
+
+    except OSError:
+        print("Writing to wayback.txt failed")
+
+
+    return
+
 def filter():
     
     try:
@@ -67,9 +86,10 @@ def enumeration():
         fl = f.readlines()
         f.close()
         for line in fl:
-            print(f'Fetching subdomains for {line[:-1]}')
-            crtsh(line[:-1])
-
+            line=line[:-1]
+            print(f'Fetching subdomains for {line}')
+            crtsh(line)
+            wayback(line)
 
     except OSError:
         print("Reading wildcard.txt failed")
