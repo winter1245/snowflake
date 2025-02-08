@@ -1,4 +1,5 @@
 import requests
+import httpx
 try:
     from snowflake.params import args
 except ImportError:
@@ -30,7 +31,7 @@ def crtsh(page):
 def wayback(page):
     
     url=f'https://web.archive.org/cdx/search/cdx?url=*.{page}/*&output=json&collapse=urlkey&fl=original&pageSize=100&page=0'
-    r = requests.get(url)
+    r = httpx.get(url)
     
     data=r.json()
     try:
