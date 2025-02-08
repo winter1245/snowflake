@@ -83,7 +83,7 @@ def filter():
 def th1(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD1]{'\033[0m'} Fetching subdomains for {line}')
+        print(f'{'\033[92m'}[THREAD1]{'\033[0m'}Fetching subdomains for {line}')
         crtsh(line)
     return
 
