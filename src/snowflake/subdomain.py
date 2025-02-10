@@ -110,7 +110,7 @@ def th4(fl):
 
 def enumeration():
    
-    fl=helper.fromFile('wildcard.txt')
+    fl=helper.fromFile('domains.txt')
 
     if args.threading:
         t1 = threading.Thread(target=th1,args=(fl,), name='t1')
