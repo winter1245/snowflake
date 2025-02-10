@@ -5,10 +5,10 @@ import threading
 
 try:
     from snowflake.params import args
-    from snowflake.helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard,removePort
+    import snowflake.helper
 except ImportError:
     from params import args
-    from helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard,removePort
+    import helper
 
 def crtsh(page):
    
@@ -26,7 +26,7 @@ def crtsh(page):
         if args.verbose:
             print('crtsh' + entry['name_value'])
     
-    appendFile('subdomains.txt',subdomains)
+    helper.appendFile('subdomains.txt',subdomains)
 
     sleep(15)
     return 
@@ -44,8 +44,8 @@ def wayback(page):
         if args.verbose and not args.quiet:
             print('wayback:' + subdomain)
     
-    removePort(list) 
-    appendFile('subdomains.txt',list)
+    helper.removePort(list) 
+    helper.appendFile('subdomains.txt',list)
     return
 
 def commoncrawl(page):
@@ -60,7 +60,7 @@ def commoncrawl(page):
         parslist = subdomain.split('/')
         tofile.append(parslist[2]+'\n')
     
-    appendFile('subdomains.txt',tofile)
+    helper.appendFile('subdomains.txt',tofile)
     
     return
 
@@ -76,41 +76,41 @@ def alienvault(page):
         if args.verbose:
             print('alienvault:' + item['hostname'])
 
-    appendFile('subdomains.txt',tofile)
+    helper.appendFile('subdomains.txt',tofile)
     return
 
     
 def th1(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD1]{'\033[0m'}Fetching subdomains for {line} from crtsh')
+        print(f'{helper.GREEN}[THREAD1]{helper.WHITE}Fetching subdomains for {line} from crtsh')
         crtsh(line)
     return
 
 def th2(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD2]{'\033[0m'}Fetching subdomains for {line} from wayback')
+        print(f'{helper.GREEN}[THREAD2]{helper.WHITE}Fetching subdomains for {line} from wayback')
         wayback(line)
     return
 
 def th3(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD3]{'\033[0m'}Fetching subdomains for {line} from commoncrawl')
+        print(f'{helper.GREEN}[THREAD3]{helper.WHITE}Fetching subdomains for {line} from commoncrawl')
         commoncrawl(line)
     return
 
 def th4(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD4]{'\033[0m'}Fetching subdomains for {line} from alienvault')
+        print(f'{helper.GREEN}[THREAD4]{helper.WHITE}Fetching subdomains for {line} from alienvault')
         alienvault(line)
     return
 
 def enumeration():
    
-    fl=fromFile('wildcard.txt')
+    fl=helper.fromFile('wildcard.txt')
 
     if args.threading:
         t1 = threading.Thread(target=th1,args=(fl,), name='t1')
@@ -135,8 +135,8 @@ def enumeration():
             commoncrawl(line)
             alienvault(line)
     
-    removeWildcard('subdomains.txt')
-    removeDuplicate('subdomains.txt')
+    helper.removeWildcard('subdomains.txt')
+    helper.removeDuplicate('subdomains.txt')
 
     return
 

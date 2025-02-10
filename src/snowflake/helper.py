@@ -1,3 +1,8 @@
+GREEN = '\033[92m'
+WHITE = '\033[0m'
+BLUE = '\033[94m'
+RED = '\033[91m'
+ORANGE = '\033[93m'
 
 def appendFile(path,list):
     
