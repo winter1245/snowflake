@@ -79,6 +79,39 @@ def alienvault(page):
     helper.appendFile('subdomains.txt',tofile)
     return
 
+
+def urlscan(page):
+   
+    resultlist=[]
+    url=f'https://urlscan.io/api/v1/search/?q=domain:{page}'
+    r = requests.get(url)
+    data=r.json()
+    idlist=[]
+    #dict_keys(['results', 'total', 'took', 'has_more'])
+    for item in data['results']:
+        #dict_keys(['submitter', 'task', 'stats', 'page', '_id', '_score', 'sort', 'result', 'screenshot'])
+        #dict_keys(['country', 'server', 'redirected', 'ip', 'mimeType', 'url', 'tlsValidDays', 'tlsAgeDays', 'ptr', 'tlsValidFrom', 'domain', 'apexDomain', 'asnname', 'asn', 'tlsIssuer', 'status'])
+        if item['page']['apexDomain']==page :
+            idlist.append(item['_id'])
+    
+    for id in idlist:
+        sleep(10)
+        url=f'https://urlscan.io/api/v1/result/{id}/'
+        r = requests.get(url)
+        data=r.json()
+        #dict_keys(['data', 'lists', 'meta', 'page', 'scanner', 'stats', 'submitter', 'task', 'verdicts'])
+        ##dict_keys(['requests', 'cookies', 'console', 'links', 'timing', 'globals'])
+        #dict_keys(['ips', 'countries', 'asns', 'domains', 'servers', 'urls', 'linkDomains', 'certificates', 'hashes']) 
+        for entry in data['lists']['domains']:
+            if entry.endswith(page):
+                resultlist.append(entry + '\n')
+        
+    helper.appendFile('subdomains.txt',resultlist)
+    return
+
+
+
+
     
 def th1(fl):
     for line in fl:
@@ -108,6 +141,15 @@ def th4(fl):
         alienvault(line)
     return
 
+
+def th5(fl):
+    for line in fl:
+        line=line[:-1]
+        print(f'{helper.GREEN}[THREAD5]{helper.WHITE}Fetching subdomains for {line} from urlscan')
+        urlscan(line)
+    return
+
+
 def enumeration():
    
     fl=helper.fromFile('domains.txt')
@@ -117,14 +159,17 @@ def enumeration():
         t2 = threading.Thread(target=th2,args=(fl,), name='t2')
         t3 = threading.Thread(target=th3,args=(fl,), name='t3')
         t4 = threading.Thread(target=th4,args=(fl,), name='t4')
+        t5 = threading.Thread(target=th5,args=(fl,), name='t5')
         t1.start()
         t2.start()
         t3.start()
         t4.start()
+        t5.start()
         t1.join()
         t2.join()
         t3.join()
         t4.join()
+        t5.join()
     
     else:
         for line in fl:
@@ -134,6 +179,7 @@ def enumeration():
             wayback(line)
             commoncrawl(line)
             alienvault(line)
+            urlscan(line)
     
     helper.removeWildcard('subdomains.txt')
     helper.removeDuplicate('subdomains.txt')
