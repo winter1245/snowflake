@@ -61,3 +61,12 @@ def removeWildcard(path):
     writeFile(path,fl)
 
     return
+
+def removePort(list):
+   
+    for i in range(len(list)):
+        if ':' in list[i]:
+            parslist=list[i].split(':')
+            list[i] = parslist[0] + '\n'
+    
+    return list

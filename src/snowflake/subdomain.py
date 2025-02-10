@@ -5,10 +5,10 @@ import threading
 
 try:
     from snowflake.params import args
-    from snowflake.helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard
+    from snowflake.helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard,removePort
 except ImportError:
     from params import args
-    from helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard
+    from helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard,removePort
 
 def crtsh(page):
    
@@ -44,6 +44,7 @@ def wayback(page):
         if args.verbose and not args.quiet:
             print('wayback:' + subdomain)
     
+    removePort(list) 
     appendFile('subdomains.txt',list)
     return
 
