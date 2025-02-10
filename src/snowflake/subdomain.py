@@ -2,10 +2,13 @@ from time import sleep
 import json
 import requests
 import threading
+
 try:
     from snowflake.params import args
+    from snowflake.helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard
 except ImportError:
     from params import args
+    from helper import writeFile,appendFile,fromFile,removeDuplicate,removeWildcard
 
 def crtsh(page):
    
@@ -155,6 +158,8 @@ def enumeration():
             wayback(line)
             commoncrawl(line)
         
-    filter()
+    removeDuplicate('subdomains.txt')
+    removeWildcard('subdomains.txt')
+
     return
 

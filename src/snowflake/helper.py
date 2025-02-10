@@ -1,15 +1,28 @@
 
-def toFile(path,list):
+def appendFile(path,list):
     
     try:
         with open(path, 'a') as file:
             for item in list:
-               file.write(item + '\n')
+                file.write(item)
 
     except OSError:
         print(f"Writing to {path} failed")
 
     return
+
+def writeFile(path,list):
+    
+    try:
+        with open(path, 'w') as file:
+            for item in list:
+                file.write(item)
+
+    except OSError:
+        print(f"Writing to {path} failed")
+
+    return
+
 
 def fromFile(path):
     
@@ -30,13 +43,8 @@ def removeDuplicate(path):
     fl=fromFile(path)
 
     unique = sorted(list(set(fl)))
-    try:
-        open(path, 'w').close() # empty file 
     
-    except OSError:
-        print(f"Writing to {path} failed")
-    
-    toFile(path,unique)
+    writeFile(path,unique)
 
     return
 
@@ -50,6 +58,6 @@ def removeWildcard(path):
         if fl[i][0]  == '.':
             fl[i]=fl[i][1:]
     
-    toFile(path,fl)
+    writeFile(path,fl)
 
     return
