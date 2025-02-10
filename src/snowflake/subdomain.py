@@ -5,7 +5,7 @@ import threading
 
 try:
     from snowflake.params import args
-    import snowflake.helper
+    import snowflake.helper as helper
 except ImportError:
     from params import args
     import helper
