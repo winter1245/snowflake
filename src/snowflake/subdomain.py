@@ -19,17 +19,14 @@ def crtsh(page):
 
     r = requests.get('https://crt.sh/', params=params)
     data=r.json()
-    assert type(data) is list
+    subdomains=[]
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
-    try:
-        with open('subdomains.txt', 'a') as file:
-            for entry in data:
-                file.write(entry['name_value']+'\n')
-                if args.verbose and not args.quiet:
-                    print(entry['name_value'])
-
-    except OSError:
-        print("Writing to subdomains.txt failed")
+    for entry in data:
+        subdomains.append(entry['name_value']+'\n')
+        if args.verbose:
+            print('crtsh' + entry['name_value'])
+    
+    appendFile('subdomains.txt',subdomains)
 
     sleep(15)
     return 
@@ -38,76 +35,36 @@ def wayback(page):
     
     url=f'https://web.archive.org/cdx/search/cdx?url=*.{page}/*&output=json&collapse=urlkey&fl=original&pageSize=100&page=0'
     r = requests.get(url)
-    
+    list=[]
     data=r.json()
-    try:
-        with open('subdomains.txt', 'a') as file:
-            for entry in data[1:]: #remove first entry "origin"
-                subdomain = entry[0]
-                parslist = subdomain.split('/') #filter subdomain
-                file.write(parslist[2]+'\n')
-                if args.verbose and not args.quiet:
-                    print(entry[0])
-
-    except OSError:
-        print("Writing to subdomains.txt failed")
-
-
+    for entry in data[1:]: #remove first entry "origin"
+        subdomain = entry[0]
+        parslist = subdomain.split('/') #filter subdomain
+        list.append(parslist[2]+'\n')
+        if args.verbose and not args.quiet:
+            print('wayback:' + subdomain)
+    
+    appendFile('subdomains.txt',list)
     return
 
 def commoncrawl(page):
     
-    page=   '*.'   + page
-    url=f'http://index.commoncrawl.org/CC-MAIN-2025-05-index?url={page}&output=json'
+    url=f'http://index.commoncrawl.org/CC-MAIN-2025-05-index?url=*.{page}&output=json'
     r = requests.get(url)
+    tofile=[]
     list=r.text.split('\n')
-    try:
-        with open('subdomains.txt', 'a') as file:
-            for entry in list[:-1]:
-                data = json.loads(entry)
-                subdomain = data['url']
-                parslist = subdomain.split('/')
-                file.write(parslist[2]+'\n')
+    for entry in list[:-1]:
+        data = json.loads(entry)
+        subdomain = data['url']
+        parslist = subdomain.split('/')
+        tofile.append(parslist[2]+'\n')
     
-    except OSError:
-        print("Writing to subdomains.txt failed")
+    appendFile('subdomains.txt',tofile)
     
     return
 
 
 
-def filter():
-    
-    try:
-        f=open('subdomains.txt','r')
-        fl = f.readlines()
-        f.close()
-    
-    except OSError:
-        print("Reading subdomains.txt failed")
-    
-    for i in range(len(fl)):
-        if fl[i][0]  ==  '*':
-            fl[i]=fl[i][1:]
-        if fl[i][0]  == '.':
-            fl[i]=fl[i][1:]
-
-    unique = sorted(list(set(fl)))
-    try:
-        open('subdomains.txt', 'w').close() # empty file 
-    
-    except OSError:
-        print("Writing to subdomains.txt failed")
-    
-    try:
-        with open('subdomains.txt', 'a') as file:
-            for item in unique:
-                file.write(item)
-    except OSError:
-        print("Writing to subdomains.txt failed")
-
-
-    return
     
 def th1(fl):
     for line in fl:
@@ -132,13 +89,9 @@ def th3(fl):
 
 
 def enumeration():
-    try:
-        f = open("wildcard.txt","r")
-        fl = f.readlines()
-        f.close()
-    except OSError:
-        print("Reading wildcard.txt failed")
-    
+   
+    fl=fromFile('wildcard.txt')
+
     if args.threading:
         t1 = threading.Thread(target=th1,args=(fl,), name='t1')
         t2 = threading.Thread(target=th2,args=(fl,), name='t2')
@@ -157,9 +110,9 @@ def enumeration():
             crtsh(line)
             wayback(line)
             commoncrawl(line)
-        
-    removeDuplicate('subdomains.txt')
+    
     removeWildcard('subdomains.txt')
+    removeDuplicate('subdomains.txt')
 
     return
 
