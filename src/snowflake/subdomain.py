@@ -64,30 +64,49 @@ def commoncrawl(page):
     
     return
 
+def alienvault(page):
+    
+    tofile=[]
+    url=f'https://otx.alienvault.com/api/v1/indicators/domain/{page}/url_list?limit=100&page=1'
+    r = requests.get(url)
+    data=r.json()
+    list=data['url_list']
+    for item in list:
+        tofile.append(item['hostname'] + '\n')
+        if args.verbose:
+            print('alienvault:' + item['hostname'])
 
+    appendFile('subdomains.txt',tofile)
+    return
 
     
 def th1(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD1]{'\033[0m'}Fetching subdomains for {line}')
+        print(f'{'\033[92m'}[THREAD1]{'\033[0m'}Fetching subdomains for {line} from crtsh')
         crtsh(line)
     return
 
 def th2(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD2]{'\033[0m'}Fetching subdomains for {line}')
+        print(f'{'\033[92m'}[THREAD2]{'\033[0m'}Fetching subdomains for {line} from wayback')
         wayback(line)
     return
 
 def th3(fl):
     for line in fl:
         line=line[:-1]
-        print(f'{'\033[92m'}[THREAD3]{'\033[0m'}Fetching subdomains for {line}')
+        print(f'{'\033[92m'}[THREAD3]{'\033[0m'}Fetching subdomains for {line} from commoncrawl')
         commoncrawl(line)
     return
 
+def th4(fl):
+    for line in fl:
+        line=line[:-1]
+        print(f'{'\033[92m'}[THREAD4]{'\033[0m'}Fetching subdomains for {line} from alienvault')
+        alienvault(line)
+    return
 
 def enumeration():
    
@@ -97,12 +116,15 @@ def enumeration():
         t1 = threading.Thread(target=th1,args=(fl,), name='t1')
         t2 = threading.Thread(target=th2,args=(fl,), name='t2')
         t3 = threading.Thread(target=th3,args=(fl,), name='t3')
+        t4 = threading.Thread(target=th4,args=(fl,), name='t4')
         t1.start()
         t2.start()
         t3.start()
+        t4.start()
         t1.join()
         t2.join()
         t3.join()
+        t4.join()
     
     else:
         for line in fl:
@@ -111,6 +133,7 @@ def enumeration():
             crtsh(line)
             wayback(line)
             commoncrawl(line)
+            alienvault(line)
     
     removeWildcard('subdomains.txt')
     removeDuplicate('subdomains.txt')
