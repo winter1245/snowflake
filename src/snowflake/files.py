@@ -81,7 +81,7 @@ def cycle():
         os.makedirs('data')
     try:
         with open(f'data/timestamp.txt', 'a') as file:
-            file.write(f'{timestamp} {date}')
+            file.write(f'{timestamp} {date}\n')
 
     except OSError:
                 print(f"Writing to data/timestamp.txt failed")
