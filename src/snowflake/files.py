@@ -16,5 +16,5 @@ def screenshot(page):
 
 
 def cycle():
-    screenshot('example.com')
+    screenshot('https://example.com')
     return
