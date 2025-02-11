@@ -17,12 +17,13 @@ def resolve():
             sys.stdout.write('\r')
             sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} Query Dns [{fl.index(subdomain)+1} of {len(fl)}]')     
             sys.stdout.flush()
+        
         try:
-            result=socket.gethostbyname(subdomain)
+            result=socket.gethostbyname(subdomain[:-1])
             resolved.append(subdomain)
         except socket.gaierror:
             continue 
-    
+   
     helper.appendFile('resolved.txt',resolved)
     print()
     return
