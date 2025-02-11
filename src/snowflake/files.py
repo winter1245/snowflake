@@ -9,9 +9,13 @@ except ImportError:
 
 def screenshot(page):
     
-    browser = webdriver.Firefox()
-    browser.get(page)
-    browser.save_screenshot('screenshot.png')
+    options = webdriver.FirefoxOptions()
+    options.add_argument("-headless")
+    driver = webdriver.Firefox(options=options)
+    driver.get(page)
+    driver.save_screenshot('screenshot.png')
+    driver.quit()
+    
     return
 
 
