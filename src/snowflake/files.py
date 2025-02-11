@@ -1,4 +1,4 @@
-from time import time
+from time import time 
 from selenium import webdriver
 
 try:
@@ -19,8 +19,8 @@ def screenshot():
         
         http = 'http://' + subdomain
         https = 'https://' + subdomain
-        timestamp = time()
-       
+        timestamp = int(round(time()))
+        folder =subdomain.replace('.','_')[-1]
 
         try:
             driver.get(http)
@@ -28,8 +28,8 @@ def screenshot():
             source = driver.page_source
             sourcelist = source.split('\n')
 
-            helper.writeFile(f'data/{subdomain.replace('.','_')}/{timestamp}/httpsource.html',sourcelist)
-            driver.save_screenshot(f'data/{subdomain.replace('.','_')}/{timestamp}/httpscreenshot.png')
+            helper.writeFile(f'data/{folder}/{timestamp}/httpsource.html',sourcelist)
+            driver.save_screenshot(f'data/{folder}/{timestamp}/httpscreenshot.png')
 
         except selenium.common.exceptions.WebDriverException:
             print(http + 'not found')    
@@ -40,8 +40,8 @@ def screenshot():
             source = driver.page_source
             sourcelist = source.split('\n')
 
-            helper.writeFile(f'data/{subdomain.replace('.','_')}/{timestamp}/source.html',sourcelist)
-            driver.save_screenshot(f'data/{subdomain.replace('.','_')}/{timestamp}/screenshot.png')
+            helper.writeFile(f'data/{folder}/{timestamp}/source.html',sourcelist)
+            driver.save_screenshot(f'data/{folder}/{timestamp}/screenshot.png')
 
         except selenium.common.exceptions.WebDriverException:
             print(https + 'not found')    
