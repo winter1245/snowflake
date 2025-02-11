@@ -1,5 +1,6 @@
 from time import time 
 from selenium import webdriver
+from bs4 import BeautifulSoup
 import os
 
 try:
@@ -29,7 +30,8 @@ def screenshot():
             driver.get(http)
 
             source = driver.page_source
-            sourcelist = source.split('\n')
+            soup = BeautifulSoup(source, 'html.parser')
+            sourcelist = soup.prettify().split('\n')
 
             helper.writeFile(f'{path}httpsource.html',sourcelist)
             driver.save_screenshot(f'{path}httpscreenshot.png')
