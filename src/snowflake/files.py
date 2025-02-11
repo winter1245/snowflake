@@ -76,7 +76,7 @@ def screenshot(timestamp):
 def cycle():
     
     timestamp = int(round(time()))
-    date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    date = strftime("%d-%m-%Y %H:%M:%S", gmtime())
     if not os.path.isdir('data'):
         os.makedirs('data')
     try:
