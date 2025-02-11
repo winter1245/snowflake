@@ -20,7 +20,7 @@ def screenshot():
         http = 'http://' + subdomain
         https = 'https://' + subdomain
         timestamp = int(round(time()))
-        folder =subdomain.replace('.','_')[-1]
+        folder =subdomain.replace('.','_')[:-1]
 
         try:
             driver.get(http)
