@@ -6,4 +6,5 @@ parser.add_argument("-v", "--verbose",action="store_true", help="more verbose lo
 parser.add_argument("-q", "--quiet",action="store_true", help="no output to stdout")
 parser.add_argument("-sub", "--subdomains",action="store_true", help="enumerate subdomains")
 parser.add_argument("-th", "--threading",action="store_true", help="enable multithreading")
+parser.add_argument("-brute", "--bruteforce",action="store_true", help="bruteforce subdommains and resolve through dns queries")
 args = parser.parse_args()

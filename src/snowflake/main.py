@@ -3,10 +3,12 @@ try:
     from snowflake.params import args
     from snowflake.formatter import formatScope
     from snowflake.subdomain import enumeration
+    from snowflake.bruteforce import bruteforce
 except ImportError:
     from params import args
     from formatter import formatScope
     from subdomain import enumeration
+    from bruteforce import bruteforce
 
 def init():
      
@@ -35,16 +37,20 @@ def init():
 def controller():
    
    
-    
+   
     if args.scope:
         formatScope()
         return
     if args.subdomains:
         enumeration()
         return
+    if args.bruteforce:
+        bruteforce()
+        return
     if args.all:
         formatScope()
         enumeration()
+        bruteforce()
         #...
         return
     
