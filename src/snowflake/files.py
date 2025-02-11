@@ -76,12 +76,12 @@ def screenshot(timestamp):
 def cycle():
     
     timestamp = int(round(time()))
-    time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     if not os.path.isdir('data'):
         os.makedirs('data')
     try:
         with open(f'data/timestamp.txt', 'a') as file:
-            file.write(f'{timestamp} {time}')
+            file.write(f'{timestamp} {date}')
 
     except OSError:
                 print(f"Writing to data/timestamp.txt failed")
