@@ -1,3 +1,4 @@
+from time import time
 from selenium import webdriver
 
 try:
@@ -14,11 +15,41 @@ def screenshot():
     options.add_argument("-headless")
     driver = webdriver.Firefox(options=options)
     
-    driver.get('https://abc.ddd.zzz.fitbook.de')
-    source = driver.page_source
-    driver.save_screenshot('screenshot.png')
+    for subdomain in fl:
+        
+        http = 'http://' + subdomain
+        https = 'https://' + subdomain
+        timestamp = time()
+       
+
+        try:
+            driver.get(http)
+
+            source = driver.page_source
+            sourcelist = source.split('\n')
+
+            helper.writeFile(f'data/{subdomain.replace('.','_')}/{timestamp}/httpsource.html',sourcelist)
+            driver.save_screenshot(f'data/{subdomain.replace('.','_')}/{timestamp}/httpscreenshot.png')
+
+        except selenium.common.exceptions.WebDriverException:
+            print(http + 'not found')    
+
+        try:
+            driver.get(https)
+
+            source = driver.page_source
+            sourcelist = source.split('\n')
+
+            helper.writeFile(f'data/{subdomain.replace('.','_')}/{timestamp}/source.html',sourcelist)
+            driver.save_screenshot(f'data/{subdomain.replace('.','_')}/{timestamp}/screenshot.png')
+
+        except selenium.common.exceptions.WebDriverException:
+            print(https + 'not found')    
+
+
+
     driver.quit()
-    
+        
     return
 
 
