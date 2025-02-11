@@ -31,6 +31,7 @@ def screenshot():
 
             source = driver.page_source
             soup = BeautifulSoup(source, 'html.parser')
+            print(soup.prettify())
             sourcelist = soup.prettify().split('\n')
 
             helper.writeFile(f'{path}httpsource.html',sourcelist)
