@@ -7,12 +7,15 @@ except ImportError:
     from params import args
     import helper
 
-def screenshot(page):
+def screenshot():
     
+    fl = helper.fromFile('resolved.txt')
     options = webdriver.FirefoxOptions()
     options.add_argument("-headless")
     driver = webdriver.Firefox(options=options)
-    driver.get(page)
+    
+    driver.get('https://abc.ddd.zzz.fitbook.de')
+    source = driver.page_source
     driver.save_screenshot('screenshot.png')
     driver.quit()
     
@@ -20,5 +23,7 @@ def screenshot(page):
 
 
 def cycle():
-    screenshot('https://example.com')
+
+
+    screenshot()
     return
