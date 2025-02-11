@@ -1,5 +1,5 @@
 import sys
-from time import time,sleep 
+from time import time,sleep,gmtime,strftime 
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
@@ -11,7 +11,7 @@ except ImportError:
     from params import args
     import helper
 
-def screenshot():
+def screenshot(timestamp):
     
     fl = helper.fromFile('resolved.txt')
     options = webdriver.FirefoxOptions()
@@ -22,7 +22,6 @@ def screenshot():
         
         http = 'http://' + subdomain
         https = 'https://' + subdomain
-        timestamp = int(round(time()))
         folder =subdomain.replace('.','_')[:-1]
         path = f'data/{folder}/{timestamp}/'
         if not os.path.isdir(path):
@@ -56,12 +55,13 @@ def screenshot():
 
             except OSError:
                 print(f"Writing to {path} failed")
+            
             driver.save_screenshot(f'{path}screenshot.png')
 
         except selenium.common.exceptions.WebDriverException:
             print(https + 'not found')    
         
-        sleep(2)
+        sleep(5)
         if not args.quiet:
             sys.stdout.write('\r')
             sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} screenshot website [{fl.index(subdomain)+1} of {len(fl)}]')     
@@ -74,7 +74,19 @@ def screenshot():
 
 
 def cycle():
+    
+    timestamp = int(round(time()))
+    time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    if not os.path.isdir('data'):
+        os.makedirs('data')
+    try:
+        with open(f'data/timestamp.txt', 'a') as file:
+            file.write(f'{timestamp} {time}')
+
+    except OSError:
+                print(f"Writing to data/timestamp.txt failed")
 
 
-    screenshot()
+
+    screenshot(timestamp)
     return
