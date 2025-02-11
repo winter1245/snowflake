@@ -4,11 +4,13 @@ try:
     from snowflake.formatter import formatScope
     from snowflake.subdomain import enumeration
     from snowflake.bruteforce import bruteforce
+    from snowflake.files import cycle
 except ImportError:
     from params import args
     from formatter import formatScope
     from subdomain import enumeration
     from bruteforce import bruteforce
+    from files import cycle
 
 def init():
      
@@ -46,6 +48,9 @@ def controller():
         return
     if args.bruteforce:
         bruteforce()
+        return
+    if args.cycle:
+        cycle()
         return
     if args.all:
         formatScope()
