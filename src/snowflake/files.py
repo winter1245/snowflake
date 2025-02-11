@@ -1,5 +1,6 @@
 from time import time 
 from selenium import webdriver
+import os
 
 try:
     from snowflake.params import args
@@ -21,15 +22,17 @@ def screenshot():
         https = 'https://' + subdomain
         timestamp = int(round(time()))
         folder =subdomain.replace('.','_')[:-1]
-
+        path = f'data/{folder}/{timestamp}/'
+        if not os.path.isdir(path):
+            os.makedirs(path)
         try:
             driver.get(http)
 
             source = driver.page_source
             sourcelist = source.split('\n')
 
-            helper.writeFile(f'data/{folder}/{timestamp}/httpsource.html',sourcelist)
-            driver.save_screenshot(f'data/{folder}/{timestamp}/httpscreenshot.png')
+            helper.writeFile(f'{path}httpsource.html',sourcelist)
+            driver.save_screenshot(f'{path}httpscreenshot.png')
 
         except selenium.common.exceptions.WebDriverException:
             print(http + 'not found')    
@@ -40,8 +43,8 @@ def screenshot():
             source = driver.page_source
             sourcelist = source.split('\n')
 
-            helper.writeFile(f'data/{folder}/{timestamp}/source.html',sourcelist)
-            driver.save_screenshot(f'data/{folder}/{timestamp}/screenshot.png')
+            helper.writeFile(f'{path}source.html',sourcelist)
+            driver.save_screenshot(f'{path}screenshot.png')
 
         except selenium.common.exceptions.WebDriverException:
             print(https + 'not found')    
