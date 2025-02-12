@@ -3,6 +3,7 @@ from time import time,sleep,gmtime,strftime
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
+import requests
 
 try:
     from snowflake.params import args
@@ -11,9 +12,44 @@ except ImportError:
     from params import args
     import helper
 
+def probe():
+
+    fl= helper.fromFile('resolved')
+    alive=[]
+    for subdomain in fl:
+        
+        http= 'http://' + subdomain
+        https = 'https://' + subdomain
+
+        try:
+            r = requests.get(http)
+            alive.append(http)
+    
+
+        except requests.exceptions.RequestException:  
+            continue
+
+        try:
+            r = requests.get(https)
+            alive.append(https)
+    
+
+        except requests.exceptions.RequestException:  
+            continue
+         
+        if not args.quiet:
+            sys.stdout.write('\r')
+            sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} probe subdomain [{fl.index(subdomain)+1} of {len(fl)}]')     
+            sys.stdout.flush()
+        sleep(2)
+
+    helper.appendFile('alive.txt',alive)
+    return
+
+
 def screenshot(timestamp):
     
-    fl = helper.fromFile('resolved.txt')
+    fl = helper.fromFile('alive.txt')
     options = webdriver.FirefoxOptions()
     options.add_argument("-headless")
     driver = webdriver.Firefox(options=options)
@@ -87,6 +123,6 @@ def cycle():
                 print(f"Writing to data/timestamp.txt failed")
 
 
-
+    probe()
     screenshot(timestamp)
     return
