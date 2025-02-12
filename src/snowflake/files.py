@@ -23,11 +23,18 @@ def probe():
 
         try:
             r = requests.get(http)
+            
             alive.append(http)
     
 
-        except requests.exceptions.RequestException:  
-            pass
+        except requests.exceptions.HTTPError:
+            print ("Http Error")
+        except requests.exceptions.ConnectionError:
+            print ("Connection Error")
+        except requests.exceptions.Timeout:
+            print ("Timeout Error")
+        except requests.exceptions.RequestException:
+            print ("Other Error")
 
         try:
             r = requests.get(https)
