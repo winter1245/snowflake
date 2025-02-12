@@ -12,7 +12,7 @@ except ImportError:
 
 def imv():
     
-    p=subprocess.run('imv data/*/*/screenshot.png', shell=True,stdout=subprocess.PIPE)
+    p=subprocess.run('imv data/*/*/*.png', shell=True,stdout=subprocess.PIPE)
     out=p.stdout.decode('utf8').split('\n')
     out=out[:-1]
     list=[]

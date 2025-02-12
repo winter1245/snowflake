@@ -64,10 +64,9 @@ def screenshot(timestamp):
     
     for alive in fl:
         
+        protocol=alive.split(':')[0]
         subdomain=alive[(alive.find('//')+2):]
-        print(subdomain)
         folder =subdomain.replace('.','_')[:-1]
-        print(folder)
         path = f'data/{folder}/{timestamp}/'
         if not os.path.isdir(path):
             os.makedirs(path)
@@ -78,13 +77,13 @@ def screenshot(timestamp):
             soup = BeautifulSoup(source, 'html.parser')
             
             try:
-                with open(f'{path}httpsource.html', 'w') as file:
+                with open(f'{path}source{protocol}.html', 'w') as file:
                     file.write(soup.prettify())
 
             except OSError:
                 print(f"Writing to {path} failed")
             
-            driver.save_screenshot(f'{path}httpscreenshot.png')
+            driver.save_screenshot(f'{path}screenshot{protocol}.png')
 
         except selenium.common.exceptions.WebDriverException:
             print(alive + 'not found')    
