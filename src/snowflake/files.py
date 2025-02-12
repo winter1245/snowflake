@@ -64,7 +64,8 @@ def screenshot(timestamp):
     
     for alive in fl:
         
-        folder =alive.replace('.','_')[:-1]
+        subdomain=alive[alive.find('//')+1]
+        folder =subdomain.replace('.','_')[:-1]
         path = f'data/{folder}/{timestamp}/'
         if not os.path.isdir(path):
             os.makedirs(path)
