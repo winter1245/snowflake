@@ -18,6 +18,7 @@ def probe():
     alive=[]
     for subdomain in fl:
         
+        print('debug')
         http= 'http://' + subdomain
         https = 'https://' + subdomain
 
@@ -27,7 +28,7 @@ def probe():
     
 
         except requests.exceptions.RequestException:  
-            continue
+            pass
 
         try:
             r = requests.get(https)
@@ -35,7 +36,7 @@ def probe():
     
 
         except requests.exceptions.RequestException:  
-            continue
+            pass
          
         if not args.quiet:
             sys.stdout.write('\r')
