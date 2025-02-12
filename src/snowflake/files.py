@@ -90,7 +90,7 @@ def screenshot(timestamp):
         sleep(5)
         if not args.quiet:
             sys.stdout.write('\r')
-            sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} screenshot website [{fl.index(subdomain)+1} of {len(fl)}]')     
+            sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} screenshot website [{fl.index(alive)+1} of {len(fl)}]')     
             sys.stdout.flush()
     
     driver.quit()
