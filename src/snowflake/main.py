@@ -47,12 +47,18 @@ def controller():
         return
     if args.subdomains:
         enumeration()
+        wrapper.notify('passive enumeration done')
+        print('\a')
         return
     if args.bruteforce:
         bruteforce()
+        wrapper.notify('subdomain bruteforce done')
+        print('\a')
         return
     if args.cycle:
         cycle()
+        wrapper.notify('cycle done')
+        print('\a')
         return
     if args.view:
         wrapper.imv()
@@ -61,7 +67,9 @@ def controller():
         formatScope()
         enumeration()
         bruteforce()
-        #...
+        cycle()
+        wrapper.notify('Recon done')
+        print('\a')
         return
     
 

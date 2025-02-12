@@ -24,3 +24,9 @@ def imv():
 
     helper.writeFile('current.txt',list)
     return
+
+def notify(notification):
+    
+    p=subprocess.run(f'notify-send {notification}',shell=True)
+
+    return
