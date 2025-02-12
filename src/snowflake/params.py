@@ -8,4 +8,5 @@ parser.add_argument("-sub", "--subdomains",action="store_true", help="enumerate 
 parser.add_argument("-th", "--threading",action="store_true", help="enable multithreading")
 parser.add_argument("-c", "--cycle",action="store_true", help="do a cycle")
 parser.add_argument("-brute", "--bruteforce",action="store_true", help="bruteforce subdommains and resolve through dns queries")
+parser.add_argument("-view", "--view",action="store_true", help="view images")
 args = parser.parse_args()

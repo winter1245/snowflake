@@ -5,12 +5,14 @@ try:
     from snowflake.subdomain import enumeration
     from snowflake.bruteforce import bruteforce
     from snowflake.files import cycle
+    import snowflake.wrapper as wrapper
 except ImportError:
     from params import args
     from formatter import formatScope
     from subdomain import enumeration
     from bruteforce import bruteforce
     from files import cycle
+    import wrapper
 
 def init():
      
@@ -51,6 +53,9 @@ def controller():
         return
     if args.cycle:
         cycle()
+        return
+    if args.view():
+        wrapper.imv()
         return
     if args.all:
         formatScope()
