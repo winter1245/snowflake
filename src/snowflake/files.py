@@ -24,7 +24,7 @@ def probe():
         try:
             r = requests.get(http)
              
-            alive.append(http)
+            alive.append(http + '\n')
     
 
         except requests.exceptions.HTTPError:
@@ -38,7 +38,7 @@ def probe():
 
         try:
             r = requests.get(https)
-            alive.append(https)
+            alive.append(https + '\n')
     
 
         except requests.exceptions.RequestException:  
@@ -62,16 +62,14 @@ def screenshot(timestamp):
     options.add_argument("-headless")
     driver = webdriver.Firefox(options=options)
     
-    for subdomain in fl:
+    for alive in fl:
         
-        http = 'http://' + subdomain
-        https = 'https://' + subdomain
         folder =subdomain.replace('.','_')[:-1]
         path = f'data/{folder}/{timestamp}/'
         if not os.path.isdir(path):
             os.makedirs(path)
         try:
-            driver.get(http)
+            driver.get(alive)
 
             source = driver.page_source
             soup = BeautifulSoup(source, 'html.parser')
@@ -86,24 +84,8 @@ def screenshot(timestamp):
             driver.save_screenshot(f'{path}httpscreenshot.png')
 
         except selenium.common.exceptions.WebDriverException:
-            print(http + 'not found')    
+            print(alive + 'not found')    
 
-        try:
-            driver.get(https)
-
-            source = driver.page_source
-            soup = BeautifulSoup(source, 'html.parser')
-            try:
-                with open(f'{path}source.html', 'w') as file:
-                    file.write(soup.prettify())
-
-            except OSError:
-                print(f"Writing to {path} failed")
-            
-            driver.save_screenshot(f'{path}screenshot.png')
-
-        except selenium.common.exceptions.WebDriverException:
-            print(https + 'not found')    
         
         sleep(5)
         if not args.quiet:
@@ -132,5 +114,5 @@ def cycle():
 
 
     probe()
-    #screenshot(timestamp)
+    screenshot(timestamp)
     return
