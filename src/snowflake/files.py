@@ -18,7 +18,6 @@ def probe():
     alive=[]
     for subdomain in fl:
         
-        print('debug')
         http= 'http://' + subdomain
         https = 'https://' + subdomain
 
@@ -125,5 +124,5 @@ def cycle():
 
 
     probe()
-    screenshot(timestamp)
+    #screenshot(timestamp)
     return
