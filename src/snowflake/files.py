@@ -64,7 +64,7 @@ def screenshot(timestamp):
     
     for alive in fl:
         
-        subdomain=alive[:(alive.find('//')+1)]
+        subdomain=alive[(alive.find('//')+1):]
         print(subdomain)
         folder =subdomain.replace('.','_')[:-1]
         print(folder)
