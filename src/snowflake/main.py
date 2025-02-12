@@ -54,7 +54,7 @@ def controller():
     if args.cycle:
         cycle()
         return
-    if args.view():
+    if args.view:
         wrapper.imv()
         return
     if args.all:
