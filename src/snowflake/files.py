@@ -18,12 +18,12 @@ def probe():
     alive=[]
     for subdomain in fl:
         
-        http= 'http://' + subdomain
-        https = 'https://' + subdomain
+        http= 'http://' + subdomain[:-1]
+        https = 'https://' + subdomain[:-1]
 
         try:
             r = requests.get(http)
-            
+             
             alive.append(http)
     
 
@@ -51,6 +51,7 @@ def probe():
         sleep(2)
 
     helper.appendFile('alive.txt',alive)
+    print()
     return
 
 
