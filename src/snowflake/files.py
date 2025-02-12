@@ -14,7 +14,7 @@ except ImportError:
 
 def probe():
 
-    fl= helper.fromFile('resolved')
+    fl= helper.fromFile('resolved.txt')
     alive=[]
     for subdomain in fl:
         
