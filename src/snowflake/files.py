@@ -25,6 +25,8 @@ def probe():
             r = requests.get(http)
             alive.append(http + '\n')
             helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
+            soup = BeautifulSoup(r.text, 'html.parser')
+            helper.append('data/titles.txt',f'{soup.title.string} {https}\n')
 
         except requests.exceptions.HTTPError:
             print ("Http Error")
@@ -39,6 +41,8 @@ def probe():
             r = requests.get(https)
             alive.append(https + '\n')
             helper.append('data/statuscodes.txt',f'{r.status_code} {https}\n')
+            soup = BeautifulSoup(r.text, 'html.parser')
+            helper.append('data/titles.txt',f'{soup.title.string} {https}\n')
     
 
         except requests.exceptions.RequestException:  
