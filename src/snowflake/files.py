@@ -24,7 +24,7 @@ def probe():
         try:
             r = requests.get(http)
             alive.append(http + '\n')
-            helper.write('data/statuscodes.txt',f'{r.status_code} {http}')
+            helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
 
         except requests.exceptions.HTTPError:
             print ("Http Error")
@@ -38,7 +38,7 @@ def probe():
         try:
             r = requests.get(https)
             alive.append(https + '\n')
-            helper.append('data/statuscodes.txt',f'{r.status_code} {https}')
+            helper.append('data/statuscodes.txt',f'{r.status_code} {https}\n')
     
 
         except requests.exceptions.RequestException:  
