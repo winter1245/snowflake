@@ -12,7 +12,7 @@ except ImportError:
     from params import args
     import helper
 
-def probe():
+def probe(timestamp):
 
     fl= helper.fromFile('resolved.txt')
     alive=[]
@@ -20,6 +20,7 @@ def probe():
         
         http= 'http://' + subdomain[:-1]
         https = 'https://' + subdomain[:-1]
+        path = f'data/{subdomain.replace('.','_')}/{timestamp}/'
 
         try:
             r = requests.get(http)
@@ -31,6 +32,7 @@ def probe():
             except AttributeError:
                 title=soup.title
             helper.append('data/titles.txt',f'{title} {https}\n')
+            helper.write(f'{path}header.txt',f'{r.headers}')
 
         except requests.exceptions.HTTPError:
             print ("Http Error")
@@ -51,6 +53,7 @@ def probe():
             except AttributeError:
                 title=soup.title
             helper.append('data/titles.txt',f'{title} {https}\n')
+            helper.write(f'{path}header.txt',f'{r.headers}')
     
 
         except requests.exceptions.RequestException:  
@@ -127,6 +130,6 @@ def cycle():
                 print(f"Writing to data/timestamp.txt failed")
 
 
-    probe()
+    probe(timestamp)
     screenshot(timestamp)
     return
