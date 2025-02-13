@@ -4,6 +4,27 @@ BLUE = '\033[94m'
 RED = '\033[91m'
 ORANGE = '\033[93m'
 
+def append(path,data : str):
+    
+    try:
+        with open(path, 'a') as file:
+            file.write(data)
+
+    except OSError:
+        print(f"Writing to {path} failed")
+
+def write(path,data : str):
+    
+    try:
+        with open(path, 'w') as file:
+            file.write(data)
+
+    except OSError:
+        print(f"Writing to {path} failed")
+
+    return
+
+
 def appendFile(path,list):
     
     try:
