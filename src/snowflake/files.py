@@ -21,6 +21,8 @@ def probe(timestamp):
         http= 'http://' + subdomain[:-1]
         https = 'https://' + subdomain[:-1]
         path = f'data/{subdomain[:-1].replace('.','_')}/{timestamp}/'
+        if not os.path.isdir(path):
+            os.makedirs(path)
 
         try:
             r = requests.get(http)
