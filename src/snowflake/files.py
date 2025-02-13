@@ -4,6 +4,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
 import requests
+import json
 
 try:
     from snowflake.params import args
@@ -34,7 +35,10 @@ def probe(timestamp):
             except AttributeError:
                 title=soup.title
             helper.append('data/titles.txt',f'{title} {https}\n')
-            helper.write(f'{path}header.txt',f'{r.headers}')
+            header=''
+            for key, value in r.headers.items():
+                header += f'{key} {value}\n'
+            helper.write(f'{path}headerhttps.txt',f'{header}')
 
         except requests.exceptions.HTTPError:
             print ("Http Error")
@@ -55,7 +59,10 @@ def probe(timestamp):
             except AttributeError:
                 title=soup.title
             helper.append('data/titles.txt',f'{title} {https}\n')
-            helper.write(f'{path}header.txt',f'{r.headers}')
+            header=''
+            for key, value in r.headers.items():
+                header += f'{key} {value}\n'
+            helper.write(f'{path}headerhttp.txt',f'{header}')
     
 
         except requests.exceptions.RequestException:  
