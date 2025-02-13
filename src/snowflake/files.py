@@ -20,7 +20,7 @@ def probe(timestamp):
         
         http= 'http://' + subdomain[:-1]
         https = 'https://' + subdomain[:-1]
-        path = f'data/{subdomain.replace('.','_')}/{timestamp}/'
+        path = f'data/{subdomain[:-1].replace('.','_')}/{timestamp}/'
 
         try:
             r = requests.get(http)
