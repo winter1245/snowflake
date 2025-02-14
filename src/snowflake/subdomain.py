@@ -36,8 +36,10 @@ def wayback(page):
     url=f'https://web.archive.org/cdx/search/cdx?url=*.{page}/*&output=json&collapse=urlkey&fl=original&pageSize=100&page=0'
     r = requests.get(url)
     list=[]
+    urls=[]
     data=r.json()
     for entry in data[1:]: #remove first entry "origin"
+        urls.append(entry)
         subdomain = entry[0]
         parslist = subdomain.split('/') #filter subdomain
         list.append(parslist[2]+'\n')
@@ -46,6 +48,7 @@ def wayback(page):
     
     helper.removePort(list) 
     helper.appendFile('subdomains.txt',list)
+    helper.appendFile('urls.txt',urls)
     return
 
 def commoncrawl(page):
