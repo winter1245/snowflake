@@ -25,6 +25,15 @@ def imv():
     helper.writeFile('current.txt',list)
     return
 
+def grep(pattern, flags:str='E'):
+    
+    p=subprocess.run(f'grep -{flags} "{pattern}"', shell=True,stdout=subprocess.PIPE)
+    out=p.stdout.decode('utf8').split('\n')
+    out=out[:-1]
+    print(out)
+    
+    return
+
 def notify(notification):
     
     p=subprocess.run(f'notify-send {notification}',shell=True)
