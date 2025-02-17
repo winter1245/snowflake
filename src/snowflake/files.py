@@ -9,9 +9,11 @@ import requests
 try:
     from snowflake.params import args
     import snowflake.helper as helper
+    import snowflake.wrapper as wrapper
 except ImportError:
     from params import args
     import helper
+    import wrapper
 
 def probe(timestamp):
 
