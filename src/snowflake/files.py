@@ -1,3 +1,4 @@
+from pathlib import Path
 import sys
 from time import time,sleep,gmtime,strftime 
 from selenium import webdriver
@@ -123,6 +124,22 @@ def screenshot(timestamp):
         
     return
 
+def secret(timestamp):
+    
+
+    user=str(Path.home())
+    files=os.listdir(f'{user}/.gf/')
+    for file in files:
+        name= file.split('.')[0]
+        out=wrapper.gf(name) 
+        if not os.path.isdir('data/secret/{timestamp}'):
+            os.makedirs(f'data/secret/{timestamp}')
+        helper.writeFile(f'data/secret/{timestamp}/{name}.txt',out)
+
+
+    return
+
+
 
 def cycle():
     
@@ -140,4 +157,5 @@ def cycle():
 
     probe(timestamp)
     screenshot(timestamp)
+    secret(timestamp)
     return
