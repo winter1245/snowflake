@@ -28,7 +28,7 @@ def crtsh(page):
     
     helper.appendFile('subdomains.txt',subdomains)
 
-    sleep(15)
+    sleep(30)
     return 
 
 def wayback(page):
@@ -48,7 +48,7 @@ def wayback(page):
     
     helper.removePort(list) 
     helper.appendFile('subdomains.txt',list)
-    helper.appendFile('urls.txt',urls)
+    #helper.appendFile('urls.txt',urls)
     return
 
 def commoncrawl(page):
