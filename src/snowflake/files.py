@@ -28,7 +28,7 @@ def probe(timestamp):
             os.makedirs(path)
 
         try:
-            r = requests.get(http)
+            r = requests.get(http,timeout=20)
             alive.append(http + '\n')
             helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
             soup = BeautifulSoup(r.text, 'html.parser')
@@ -52,7 +52,7 @@ def probe(timestamp):
             print ("Other Error")
 
         try:
-            r = requests.get(https)
+            r = requests.get(https,timeout=20)
             alive.append(https + '\n')
             helper.append('data/statuscodes.txt',f'{r.status_code} {https}\n')
             soup = BeautifulSoup(r.text, 'html.parser')
