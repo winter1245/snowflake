@@ -131,11 +131,11 @@ def secret(timestamp):
 
     user=str(Path.home())
     files=os.listdir(f'{user}/.gf/')
+    if not os.path.isdir(f'data/secret/{timestamp}'):
+        os.makedirs(f'data/secret/{timestamp}')
     for file in files:
         name= file.split('.')[0]
         out=wrapper.gf(name) 
-        if not os.path.isdir('data/secret/{timestamp}'):
-            os.makedirs(f'data/secret/{timestamp}')
         helper.writeFile(f'data/secret/{timestamp}/{name}.txt',out)
 
 
