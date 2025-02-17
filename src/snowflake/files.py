@@ -136,7 +136,7 @@ def secret(timestamp):
     for file in files:
         name= file.split('.')[0]
         out=wrapper.gf(name) 
-        helper.writeFile(f'data/secret/{timestamp}/{name}.txt',out)
+        helper.write(f'data/secret/{timestamp}/{name}.txt',out)
 
 
     return

@@ -29,7 +29,7 @@ def gf(pattern):
 
     print(f'gf {pattern}')
     p=subprocess.run((f'gf {pattern}'), shell=True,stdout=subprocess.PIPE)
-    out=p.stdout.decode('utf8').split('\n')
+    out=p.stdout.decode('utf8')
     out=out[:-1]
 
     return out
