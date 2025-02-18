@@ -26,7 +26,7 @@ def probe(timestamp,subdomain):
         os.makedirs(path)
 
     try:
-        r = requests.get(http,timeout=20)
+        r = requests.get(http,timeout=15)
         alive.append(http + '\n')
         helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
         soup = BeautifulSoup(r.text, 'html.parser')
@@ -131,11 +131,18 @@ def secret(timestamp):
     return
 
 def threadfunc(timestamp,fl,i):
-        
+    
+    maxindex=1
     for index in range(len(fl)):
+        if index>maxindex:
+            maxindex=index
+        if not args.quiet:
+            sys.stdout.write('\r')
+            sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} probe subdomain [{maxindex} of {len(fl)}]')     
+            sys.stdout.flush()
         if index % 10==i:
             probe(timestamp,fl[index])
-            sleep(10)
+            sleep(5)
         
 
     return
