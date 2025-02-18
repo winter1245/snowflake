@@ -8,10 +8,23 @@ except ImportError:
     from params import args
     import helper
 
+    
+
+
+    return
+
+
+
 def resolve():
    
     resolved=[]
     fl=helper.fromFile('subdomains.txt')
+    domains=helper.fromFile('domains.txt')
+    for subdomain in fl:
+        domain= subdomain.split('.')[-2] + '.' + subdomain.split('.')[-1] 
+        if domain not in domains:
+            fl.remove(subdomain)
+
     for subdomain in fl:
         if not args.quiet:
             sys.stdout.write('\r')
