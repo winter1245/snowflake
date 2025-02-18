@@ -8,12 +8,6 @@ except ImportError:
     from params import args
     import helper
 
-    
-
-
-    return
-
-
 
 def resolve():
    
