@@ -15,66 +15,54 @@ except ImportError:
     import helper
     import wrapper
 
-def probe(timestamp):
+def probe(timestamp,subdomain):
 
-    fl= helper.fromFile('resolved.txt')
     alive=[]
-    for subdomain in fl:
+    http= 'http://' + subdomain[:-1]
+    https = 'https://' + subdomain[:-1]
+    path = f'data/{subdomain[:-1].replace('.','_')}/{timestamp}/'
+    if not os.path.isdir(path):
+        os.makedirs(path)
+
+    try:
+        r = requests.get(http,timeout=20)
+        alive.append(http + '\n')
+        helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
+        soup = BeautifulSoup(r.text, 'html.parser')
+        try:
+            title=soup.title.string
+        except AttributeError:
+            title=soup.title
         
-        http= 'http://' + subdomain[:-1]
-        https = 'https://' + subdomain[:-1]
-        path = f'data/{subdomain[:-1].replace('.','_')}/{timestamp}/'
-        if not os.path.isdir(path):
-            os.makedirs(path)
+        helper.append('data/titles.txt',f'{title} {https}\n')
+        header=''
+        for key, value in r.headers.items():
+            header += f'{key}: {value}\n'
+        helper.write(f'{path}headerhttps.txt',f'{header}')
 
+    except requests.exceptions.RequestException:
+        pass
+
+    try:
+        r = requests.get(https,timeout=20)
+        alive.append(https + '\n')
+        helper.append('data/statuscodes.txt',f'{r.status_code} {https}\n')
+        soup = BeautifulSoup(r.text, 'html.parser')
         try:
-            r = requests.get(http,timeout=20)
-            alive.append(http + '\n')
-            helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
-            soup = BeautifulSoup(r.text, 'html.parser')
-            try:
-                title=soup.title.string
-            except AttributeError:
-                title=soup.title
-            helper.append('data/titles.txt',f'{title} {https}\n')
-            header=''
-            for key, value in r.headers.items():
-                header += f'{key}: {value}\n'
-            helper.write(f'{path}headerhttps.txt',f'{header}')
-
-        except requests.exceptions.HTTPError:
-            print ("Http Error")
-        except requests.exceptions.ConnectionError:
-            print ("Connection Error")
-        except requests.exceptions.Timeout:
-            print ("Timeout Error")
-        except requests.exceptions.RequestException:
-            print ("Other Error")
-
-        try:
-            r = requests.get(https,timeout=20)
-            alive.append(https + '\n')
-            helper.append('data/statuscodes.txt',f'{r.status_code} {https}\n')
-            soup = BeautifulSoup(r.text, 'html.parser')
-            try:
-                title=soup.title.string
-            except AttributeError:
-                title=soup.title
-            helper.append('data/titles.txt',f'{title} {https}\n')
-            header=''
-            for key, value in r.headers.items():
-                header += f'{key}: {value}\n'
-            helper.write(f'{path}headerhttp.txt',f'{header}')
+            title=soup.title.string
+        except AttributeError:
+            title=soup.title
+        helper.append('data/titles.txt',f'{title} {https}\n')
+        header=''
+        for key, value in r.headers.items():
+            header += f'{key}: {value}\n'
+        helper.write(f'{path}headerhttp.txt',f'{header}')
     
 
-        except requests.exceptions.RequestException:  
-            pass
+    except requests.exceptions.RequestException:  
+        pass
          
-        if not args.quiet:
-            sys.stdout.write('\r')
-            sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} probe subdomain [{fl.index(subdomain)+1} of {len(fl)}]')     
-            sys.stdout.flush()
-        sleep(2)
+   
 
     helper.appendFile('alive.txt',alive)
     print()
@@ -141,6 +129,11 @@ def secret(timestamp):
 
     return
 
+def multiprobe(fl):
+    
+
+
+    return
 
 
 def cycle():
@@ -156,8 +149,19 @@ def cycle():
     except OSError:
                 print(f"Writing to data/timestamp.txt failed")
 
-
-    probe(timestamp)
+    fl=helper.fromFile('resolved.txt')
+    if args.threading:
+        multiprobe(fl)
+    
+    else:
+        for subdomain in fl:
+            probe(timestamp,subdomain)
+            if not args.quiet:
+                sys.stdout.write('\r')
+                sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} probe subdomain [{fl.index(subdomain)+1} of {len(fl)}]')     
+                sys.stdout.flush()
+            sleep(2)
+    
     screenshot(timestamp)
     secret(timestamp)
     return
