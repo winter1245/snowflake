@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 from time import time,sleep,gmtime,strftime 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from bs4 import BeautifulSoup
 import os
 import requests
@@ -99,7 +100,7 @@ def screenshot(timestamp):
             
             driver.save_screenshot(f'{path}screenshot{protocol}.png')
 
-        except selenium.common.exceptions.WebDriverException:
+        except WebDriverException:
             print(alive + 'not found')    
 
         
