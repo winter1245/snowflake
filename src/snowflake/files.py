@@ -1,3 +1,4 @@
+import threading
 from pathlib import Path
 import sys
 from time import time,sleep,gmtime,strftime 
@@ -129,9 +130,27 @@ def secret(timestamp):
 
     return
 
-def multiprobe(fl):
-    
+def threadfunc(timestamp,fl,i):
+        
+    for index in range(len(fl)):
+        if index % 10==i:
+            probe(timestamp,fl[index])
+            sleep(10)
+        
 
+    return
+
+def multiprobe(timestamp,fl):
+    
+    threadlist=[]
+    for i in range(10):
+        t = threading.Thread(target=threadfunc,args=(timestamp,fl,i), name='t1')
+        threadlist.append(t)
+        t.start()
+    
+    for t in threadlist:
+        t.join()
+    
 
     return
 
@@ -151,7 +170,7 @@ def cycle():
 
     fl=helper.fromFile('resolved.txt')
     if args.threading:
-        multiprobe(fl)
+        multiprobe(timestamp,fl)
     
     else:
         for subdomain in fl:
