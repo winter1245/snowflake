@@ -22,9 +22,11 @@ def crtsh(page):
     subdomains=[]
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
     for entry in data:
-        subdomains.append(entry['name_value']+'\n')
-        if args.verbose:
-            print('crtsh' + entry['name_value'])
+        domain = entry.split('.') + '.' + entry.split('.')
+        if domain==page:
+            subdomains.append(entry['name_value']+'\n')
+            if args.verbose:
+                print('crtsh' + entry['name_value'])
     
     helper.appendFile('subdomains.txt',subdomains)
 
@@ -42,9 +44,13 @@ def wayback(page):
         urls.append(entry)
         subdomain = entry[0]
         parslist = subdomain.split('/') #filter subdomain
-        list.append(parslist[2]+'\n')
-        if args.verbose and not args.quiet:
-            print('wayback:' + subdomain)
+        
+        domain = parslist[2].split('.') + '.' + parslist[2].split('.')
+        if domain== page:
+
+            list.append(parslist[2]+'\n')
+            if args.verbose and not args.quiet:
+                print('wayback:' + subdomain)
     
     helper.removePort(list) 
     helper.appendFile('subdomains.txt',list)
@@ -61,7 +67,12 @@ def commoncrawl(page):
         data = json.loads(entry)
         subdomain = data['url']
         parslist = subdomain.split('/')
-        tofile.append(parslist[2]+'\n')
+        domain = parslist[2].split('.') + '.' + parslist[2].split('.')
+        if domain==page:
+            tofile.append(parslist[2]+'\n')
+            if args.verbose and not args.quiet:
+                print('commoncrawl:' + subdomain)
+
     
     helper.appendFile('subdomains.txt',tofile)
     
@@ -75,9 +86,11 @@ def alienvault(page):
     data=r.json()
     list=data['url_list']
     for item in list:
-        tofile.append(item['hostname'] + '\n')
-        if args.verbose:
-            print('alienvault:' + item['hostname'])
+        domain = item['hostname'].split('.') + '.' + item['hostname'].split('.')
+        if domain==page:
+            tofile.append(item['hostname'] + '\n')
+            if args.verbose:
+                print('alienvault:' + item['hostname'])
 
     helper.appendFile('subdomains.txt',tofile)
     return
@@ -106,8 +119,12 @@ def urlscan(page):
         ##dict_keys(['requests', 'cookies', 'console', 'links', 'timing', 'globals'])
         #dict_keys(['ips', 'countries', 'asns', 'domains', 'servers', 'urls', 'linkDomains', 'certificates', 'hashes']) 
         for entry in data['lists']['domains']:
-            if entry.endswith(page):
+            domain = entry.split('.') + '.' + entry.split('.')
+            if domain==page:
                 resultlist.append(entry + '\n')
+                if args.verbose:
+                    print('urlscan:' + entry)
+
         
     helper.appendFile('subdomains.txt',resultlist)
     return
