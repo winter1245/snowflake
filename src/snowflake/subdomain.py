@@ -10,6 +10,11 @@ except ImportError:
     from params import args
     import helper
 
+def validate(subdomain,domain):
+    domainOfSubdomain = subdomain.split('.')[-2] + '.' + subdomain.split('.')[-1]
+
+    return domainOfSubdomain==domain
+
 def crtsh(page):
    
     params = {
@@ -22,11 +27,11 @@ def crtsh(page):
     subdomains=[]
     #dict_keys(['issuer_ca_id', 'issuer_name', 'common_name', 'name_value', 'id', 'entry_timestamp', 'not_before', 'not_after', 'serial_number', 'result_count'])
     for entry in data:
-        domain = entry.split('.') + '.' + entry.split('.')
-        if domain==page:
-            subdomains.append(entry['name_value']+'\n')
+        subdomain=entry['name_value']
+        if validate(subdomain,page):
+            subdomains.append(subdomain +'\n')
             if args.verbose:
-                print('crtsh' + entry['name_value'])
+                print('crtsh' + subdomain)
     
     helper.appendFile('subdomains.txt',subdomains)
 
@@ -45,8 +50,7 @@ def wayback(page):
         subdomain = entry[0]
         parslist = subdomain.split('/') #filter subdomain
         
-        domain = parslist[2].split('.') + '.' + parslist[2].split('.')
-        if domain== page:
+        if validate(parslist[2],page):
 
             list.append(parslist[2]+'\n')
             if args.verbose and not args.quiet:
@@ -67,8 +71,8 @@ def commoncrawl(page):
         data = json.loads(entry)
         subdomain = data['url']
         parslist = subdomain.split('/')
-        domain = parslist[2].split('.') + '.' + parslist[2].split('.')
-        if domain==page:
+        
+        if validate(parslist[2],page):
             tofile.append(parslist[2]+'\n')
             if args.verbose and not args.quiet:
                 print('commoncrawl:' + subdomain)
@@ -86,8 +90,7 @@ def alienvault(page):
     data=r.json()
     list=data['url_list']
     for item in list:
-        domain = item['hostname'].split('.') + '.' + item['hostname'].split('.')
-        if domain==page:
+        if validate(item['hostname'],page):
             tofile.append(item['hostname'] + '\n')
             if args.verbose:
                 print('alienvault:' + item['hostname'])
@@ -119,8 +122,7 @@ def urlscan(page):
         ##dict_keys(['requests', 'cookies', 'console', 'links', 'timing', 'globals'])
         #dict_keys(['ips', 'countries', 'asns', 'domains', 'servers', 'urls', 'linkDomains', 'certificates', 'hashes']) 
         for entry in data['lists']['domains']:
-            domain = entry.split('.') + '.' + entry.split('.')
-            if domain==page:
+            if validate(entry,page):
                 resultlist.append(entry + '\n')
                 if args.verbose:
                     print('urlscan:' + entry)
