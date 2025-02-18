@@ -66,7 +66,6 @@ def probe(timestamp,subdomain):
    
 
     helper.appendFile('alive.txt',alive)
-    print()
     return
 
 
@@ -132,13 +131,10 @@ def secret(timestamp):
 
 def threadfunc(timestamp,fl,i):
     
-    maxindex=1
     for index in range(len(fl)):
-        if index>maxindex:
-            maxindex=index
         if not args.quiet:
             sys.stdout.write('\r')
-            sys.stdout.write(f'{helper.GREEN}[INFO]{helper.WHITE} probe subdomain [{maxindex} of {len(fl)}]')     
+            sys.stdout.write(f'{helper.GREEN}[THREAD{i}]{helper.WHITE} probe subdomain [{index} of {len(fl)}]')     
             sys.stdout.flush()
         if index % 10==i:
             probe(timestamp,fl[index])
@@ -151,13 +147,14 @@ def multiprobe(timestamp,fl):
     
     threadlist=[]
     for i in range(10):
-        t = threading.Thread(target=threadfunc,args=(timestamp,fl,i), name='t1')
+        t = threading.Thread(target=threadfunc,args=(timestamp,fl,i), name='t{i}')
         threadlist.append(t)
         t.start()
     
     for t in threadlist:
         t.join()
-    
+
+    print()
 
     return
 
