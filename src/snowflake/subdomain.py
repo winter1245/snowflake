@@ -47,7 +47,7 @@ def wayback(page):
     data=r.json()
     for entry in data[1:]: #remove first entry "origin"
         subdomain = entry[0]
-        urls.append(subdomain)
+        urls.append(subdomain + '\n')
         parslist = subdomain.split('/') #filter subdomain
         
         if validate(parslist[2],page):
