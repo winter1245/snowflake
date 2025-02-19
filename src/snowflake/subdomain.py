@@ -46,8 +46,8 @@ def wayback(page):
     urls=[]
     data=r.json()
     for entry in data[1:]: #remove first entry "origin"
-        urls.append(entry)
         subdomain = entry[0]
+        urls.append(subdomain)
         parslist = subdomain.split('/') #filter subdomain
         
         if validate(parslist[2],page):
@@ -58,7 +58,7 @@ def wayback(page):
     
     helper.removePort(list) 
     helper.appendFile('subdomains.txt',list)
-    #helper.appendFile('urls.txt',urls)
+    helper.appendFile('urls.txt',urls)
     return
 
 def commoncrawl(page):
@@ -70,7 +70,6 @@ def commoncrawl(page):
     for entry in list[:-1]:
         data = json.loads(entry)
         subdomain = data['url']
-        helper.append('urls',subdomain)
         parslist = subdomain.split('/')
         
         if validate(parslist[2],page):
