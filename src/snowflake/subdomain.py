@@ -70,6 +70,7 @@ def commoncrawl(page):
     for entry in list[:-1]:
         data = json.loads(entry)
         subdomain = data['url']
+        helper.append('urls',subdomain)
         parslist = subdomain.split('/')
         
         if validate(parslist[2],page):
