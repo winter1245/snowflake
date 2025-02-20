@@ -4,7 +4,7 @@ BLUE = '\033[94m'
 RED = '\033[91m'
 ORANGE = '\033[93m'
 
-def append(path,data : str):
+def append(path:str,data : str):
     
     try:
         with open(path, 'a') as file:
@@ -25,7 +25,7 @@ def write(path,data : str):
     return
 
 
-def appendFile(path,list):
+def appendFile(path:str,list:list):
     
     try:
         with open(path, 'a') as file:
@@ -37,7 +37,7 @@ def appendFile(path,list):
 
     return
 
-def writeFile(path,list):
+def writeFile(path:str,list:list):
     
     try:
         with open(path, 'w') as file:
@@ -50,7 +50,7 @@ def writeFile(path,list):
     return
 
 
-def fromFile(path):
+def fromFile(path:str):
     
     list = []
     try:
@@ -64,7 +64,7 @@ def fromFile(path):
 
     return list
 
-def removeDuplicate(path):
+def removeDuplicate(path:str):
     
     fl=fromFile(path)
 
@@ -74,7 +74,7 @@ def removeDuplicate(path):
 
     return
 
-def removeWildcard(path):
+def removeWildcard(path:str):
     
     fl=fromFile(path)
     
@@ -88,7 +88,7 @@ def removeWildcard(path):
 
     return
 
-def removePort(list):
+def removePort(list:list):
    
     for i in range(len(list)):
         if ':' in list[i]:

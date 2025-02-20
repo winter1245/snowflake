@@ -167,11 +167,11 @@ def cycle():
     if not os.path.isdir('data'):
         os.makedirs('data')
     try:
-        with open(f'data/timestamp.txt', 'a') as file:
+        with open('data/timestamp.txt', 'a') as file:
             file.write(f'{timestamp} {date}\n')
 
     except OSError:
-                print(f"Writing to data/timestamp.txt failed")
+                print("Writing to data/timestamp.txt failed")
 
     fl=helper.fromFile('resolved.txt')
     if args.threading:
