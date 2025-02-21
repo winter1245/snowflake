@@ -36,11 +36,12 @@ def probe(timestamp,subdomain):
         except AttributeError:
             title=soup.title
         
+        helper.write(f'{path}responsehttp.txt',r.text)
         helper.append('data/titles.txt',f'{title} {https}\n')
         header=''
         for key, value in r.headers.items():
             header += f'{key}: {value}\n'
-        helper.write(f'{path}headerhttps.txt',f'{header}')
+        helper.write(f'{path}headerhttp.txt',f'{header}')
 
     except requests.exceptions.RequestException:
         pass
@@ -54,11 +55,13 @@ def probe(timestamp,subdomain):
             title=soup.title.string
         except AttributeError:
             title=soup.title
+        
+        helper.write(f'{path}responsehttps.txt',r.text)
         helper.append('data/titles.txt',f'{title} {https}\n')
         header=''
         for key, value in r.headers.items():
             header += f'{key}: {value}\n'
-        helper.write(f'{path}headerhttp.txt',f'{header}')
+        helper.write(f'{path}headerhttps.txt',f'{header}')
     
 
     except requests.exceptions.RequestException:  
