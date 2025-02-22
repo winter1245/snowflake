@@ -96,3 +96,21 @@ def removePort(list:list):
             list[i] = parslist[0] + '\n'
     
     return list
+
+def diff(path1:str,path2:str):
+    
+    fl1=fromFile(path1)
+    fl2=fromFile(path2)
+    diff={}
+    diff['added']=[]
+    diff['removed']=[]
+
+
+    for x,y in fl1,fl2:
+        if x != y:
+            if x not in fl2:
+                diff['added'].append(x)
+            if y not in fl1:
+                diff['removed'].append(y)
+
+    return diff
