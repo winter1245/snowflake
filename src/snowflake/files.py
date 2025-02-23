@@ -22,7 +22,7 @@ def probe(timestamp,subdomain):
     alive=[]
     http= 'http://' + subdomain[:-1]
     https = 'https://' + subdomain[:-1]
-    path = f'data/{subdomain[:-1].replace('.','_')}/{timestamp}/'
+    path = f'data/{timestamp}/{subdomain[:-1].replace('.','_')}/'
     if not os.path.isdir(path):
         os.makedirs(path)
 
@@ -85,7 +85,7 @@ def screenshot(timestamp):
         protocol=alive.split(':')[0]
         subdomain=alive[(alive.find('//')+2):]
         folder =subdomain.replace('.','_')[:-1]
-        path = f'data/{folder}/{timestamp}/'
+        path = f'data/{timestamp}/{folder}/'
         if not os.path.isdir(path):
             os.makedirs(path)
         try:
