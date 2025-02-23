@@ -29,7 +29,7 @@ def probe(timestamp,subdomain):
     try:
         r = requests.get(http,timeout=15)
         alive.append(http + '\n')
-        helper.append('data/statuscodes.txt',f'{r.status_code} {http}\n')
+        helper.append(f'data/{timestamp}/statuscodes.txt',f'{r.status_code} {http}\n')
         soup = BeautifulSoup(r.text, 'html.parser')
         try:
             title=soup.title.string
@@ -37,7 +37,7 @@ def probe(timestamp,subdomain):
             title=soup.title
         
         helper.write(f'{path}responsehttp.txt',r.text)
-        helper.append('data/titles.txt',f'{title} {https}\n')
+        helper.append(f'data/{timestamp}/titles.txt',f'{title} {https}\n')
         header=''
         for key, value in r.headers.items():
             header += f'{key}: {value}\n'
@@ -49,7 +49,7 @@ def probe(timestamp,subdomain):
     try:
         r = requests.get(https,timeout=20)
         alive.append(https + '\n')
-        helper.append('data/statuscodes.txt',f'{r.status_code} {https}\n')
+        helper.append(f'data/{timestamp}/statuscodes.txt',f'{r.status_code} {https}\n')
         soup = BeautifulSoup(r.text, 'html.parser')
         try:
             title=soup.title.string
@@ -123,12 +123,12 @@ def secret(timestamp):
 
     user=str(Path.home())
     files=os.listdir(f'{user}/.gf/')
-    if not os.path.isdir(f'data/secret/{timestamp}'):
-        os.makedirs(f'data/secret/{timestamp}')
+    if not os.path.isdir(f'data/{timestamp}/secret/'):
+        os.makedirs(f'data/{timestamp}/secret/')
     for file in files:
         name= file.split('.')[0]
         out=wrapper.gf(name) 
-        helper.write(f'data/secret/{timestamp}/{name}.txt',out)
+        helper.write(f'data/{timestamp}/secret/{name}.txt',out)
 
 
     return
@@ -169,12 +169,8 @@ def cycle():
     date = strftime("%d-%m-%Y %H:%M:%S", gmtime())
     if not os.path.isdir('data'):
         os.makedirs('data')
-    try:
-        with open('data/timestamp.txt', 'a') as file:
-            file.write(f'{timestamp} {date}\n')
-
-    except OSError:
-                print("Writing to data/timestamp.txt failed")
+    
+    helper.append('data/timestamp',f'{timestamp} {date}\n')
 
     fl=helper.fromFile('resolved.txt')
     if args.threading:

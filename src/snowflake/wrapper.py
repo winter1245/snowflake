@@ -17,7 +17,7 @@ def imv():
     out=out[:-1]
     list=[]
     for i in range(len(out)):
-        out[i]=out[i].split('/')[-3]
+        out[i]=out[i].split('/')[-2]
         out[i]=out[i].replace('_','.')
         list.append('https://' + out[i] + '\n')
         print('https://' + out[i])
