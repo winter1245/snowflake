@@ -1,5 +1,6 @@
 # snowflake
 A recon tool for bug bounty
+
 Make sure you have proper authorisation before doing any testing.
 
 ## Installation
