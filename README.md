@@ -5,8 +5,8 @@ Make sure you have proper authorisation before doing any testing.
 
 ## dependencies
 
-> imv
-> [gf](https://github.com/tomnomnom/gf)
++ imv
++ [gf](https://github.com/tomnomnom/gf)
 
 ## Installation
 
